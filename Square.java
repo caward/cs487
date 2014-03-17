@@ -1,11 +1,12 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Square
 {
 	Point position;
 	GameBoard board;
-	final ROW = 5;
-	final COL = 5;
+	final int ROW = 5;
+	final int COL = 5;
 	enum Squares {PLAIN, HILL, OBSTACLE, PIT }
 
 	public Square(Point position, GameBoard board)
@@ -22,7 +23,7 @@ public class Square
 
 	public void areaEffect(Tank tank)
 	{
-		tank.setVisibility(ROW,COL)
+		tank.setVisibility(ROW,COL);
 	}
 
 	public Squares getSquareType()

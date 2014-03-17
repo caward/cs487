@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 
 public class Tank
 {
@@ -17,36 +19,48 @@ public class Tank
 	public PlayerCommand scan()
 	{
 		Command command = new Command("scan");
-		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID,command);
+		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID(),command);
 		return playerCommand;
 	}
 
 	public PlayerCommand observe()
 	{
 		Command command = new Command("observe");
-		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID,command);
+		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID(),command);
 		return playerCommand;
 	}
 
 	public PlayerCommand turn(String direction)
 	{
 		Command command = new Command(direction);
-		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID,command);
+		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID(),command);
 		return playerCommand;
 	}
 
 	public PlayerCommand fire()
 	{
 		Command command = new Command("fire");
-		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID,command);
+		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID(),command);
 		return playerCommand;
 	}
 
 	public PlayerCommand move(String direction)
 	{
 		Command command = new Command(direction);
-		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID,command);
+		PlayerCommand playerCommand = new PlayerCommand(player.getPlayerID(),command);
 		return playerCommand;
+	}
+
+	public void setVisibility(int row, int col)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Point getPosition()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

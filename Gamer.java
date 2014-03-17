@@ -1,7 +1,7 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket
+//import java.net.ServerSocket;
+//import java.net.Socket;
 
 public class Gamer implements Runnable
 {
@@ -13,7 +13,7 @@ public class Gamer implements Runnable
 	{
 		this.gamers = gamers;
 		this.objectIn = objectIn;
-		thi.objectOut = objectOut;
+		this.objectOut = objectOut;
 	}
 
 	public void run()

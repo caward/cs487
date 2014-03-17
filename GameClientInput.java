@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.ObjectInputStream;
 
 
@@ -14,7 +15,15 @@ public class GameClientInput implements Runnable
 	{
 		while(true)
 		{
-			PlayerCommand command =(PlayerCommand)objectIn.readObject();
+			try {
+				PlayerCommand command = (PlayerCommand)objectIn.readObject();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

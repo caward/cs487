@@ -1,13 +1,13 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
-import java.net.Socket
+import java.net.Socket;
 
 
 public class GameServer
 {
 
-  final MAX_GAMERS = 8;
+  final static int MAX_GAMERS = 8;
   public static void main(String args[]) throws Exception
   {
     ServerSocket servSocket;
@@ -29,8 +29,8 @@ public class GameServer
 
         if(gamers[i]==null)
         {
-          gamers[i] = new Gamer(gamers,ois,oos)
-          Thread.thread = newThread(user[i]);
+          gamers[i] = new Gamer(gamers,ois,oos);
+          Thread thread = new Thread(gamers[i]);
           thread.start();
           break;  
         }
