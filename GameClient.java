@@ -1,7 +1,7 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
-import java.net.ServerSocket;
+//import java.net.ServerSocket;
 import java.net.Socket;
 
 public class GameClient
@@ -11,7 +11,6 @@ public class GameClient
   {
     Socket socket1;
     int portNumber = 7777;
-    String str = "";
 
     socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 

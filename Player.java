@@ -4,11 +4,11 @@ public class Player
 	long playerid = -1;
 	Tank tank;
 
-	public Player(String name, long pid, Tank t)
+	public Player(String name, long pid)
 	{
 		this.name = name;
 		playerid = pid;
-		this.tank = tank;
+		this.tank = null;
 	}
 
 	public long getPlayerID()
@@ -21,6 +21,11 @@ public class Player
 		return name;
 	}
 
+	public void setTank(Tank t)
+	{
+		tank = t;
+	}
+	
 	public Tank getTank()
 	{
 		return tank;

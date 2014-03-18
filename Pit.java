@@ -1,10 +1,17 @@
+import java.awt.Point;
+
 public class Pit extends Square
 {
+	public Pit(Point position, GameBoard board)
+	{
+		super(position, board);
+	}
+
 	final int ROW = 1;
 	final int COL = 1;
 
-	public Square getSquareType()
+	public Squares getSquareType()
 	{
-		return Square.PIT;
+		return Squares.PIT;
 	}
 }

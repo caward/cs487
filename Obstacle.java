@@ -1,10 +1,17 @@
+import java.awt.Point;
+
 public class Obstacle extends Square
 {
+	public Obstacle(Point position, GameBoard board)
+	{
+		super(position, board);
+	}
+
 	final int ROW = 0;
 	final int COL = 0;
 
-	public Square getSquareType()
+	public Squares getSquareType()
 	{
-		return Square.OBSTACLE;
+		return Squares.OBSTACLE;
 	}
 }
