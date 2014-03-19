@@ -7,7 +7,7 @@ public class Square
 	GameBoard board;
 	final int ROW = 5;
 	final int COL = 5;
-	enum Squares {PLAIN, HILL, OBSTACLE, PIT }
+	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
 
 	public Square(Point position, GameBoard board)
 	{
