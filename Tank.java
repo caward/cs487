@@ -2,6 +2,8 @@
 import java.awt.*;
 import java.awt.event.*;
 
+import javax.swing.ImageIcon;
+
 public class Tank {
 	public static final int XSPEED = 40;
 	public static final int YSPEED = 40;
@@ -11,6 +13,7 @@ public class Tank {
 	
 	TankClient tc;
 	Point p;
+	Image tankImage;
 	
 	private int x, y;
 	
@@ -20,25 +23,32 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 
-	public Tank(int x, int y) {
+	public Tank(int x, int y)
+	{
 		this.x = x;
 		this.y = y;
 		p = new Point(x,y);
+		tankImage = new ImageIcon("images/abrams_m1_battle_tank16.png").getImage();
 	}
 	
-	public Tank(int x, int y, TankClient tc) {
+	public Tank(int x, int y, TankClient tc)
+	{
 		this(x, y);
 		this.tc = tc;
 		p = new Point(x,y);
+		tankImage = new ImageIcon("images/abrams_m1_battle_tank32.png").getImage();
 	}
 	
-	public void draw(Graphics g) {
+	public void draw(Graphics g)
+	{
 		Color c = g.getColor();
 		g.setColor(Color.RED);
+//		g.drawImage(tankImage,x,y,null);
 		g.fillRect(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		
-		switch(ptDir) {
+		switch(ptDir)
+		{
 		case L:
 			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x - 4, y + Tank.HEIGHT/2);
 			break;
@@ -56,7 +66,8 @@ public class Tank {
 		move();
 	}
 	
-	void move() {
+	void move()
+	{
 		switch(dir) {
 		case L:
 			x -= XSPEED;
@@ -74,7 +85,8 @@ public class Tank {
 			break;
 		}
 		
-		if(this.dir != Direction.STOP) {
+		if(this.dir != Direction.STOP)
+		{
 			this.ptDir = this.dir;
 		}
 		
@@ -102,7 +114,8 @@ public class Tank {
 		
 	}
 	
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e)
+	{
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_LEFT :
@@ -121,7 +134,8 @@ public class Tank {
 		locateDirection();
 	}
 	
-	void locateDirection() {
+	void locateDirection()
+	{
 		if(bL && !bU && !bR && !bD) dir = Direction.L;
 		else if(!bL && bU && !bR && !bD) dir = Direction.U;
 		else if(!bL && !bU && bR && !bD) dir = Direction.R;
@@ -129,7 +143,8 @@ public class Tank {
 		else if(!bL && !bU && !bR && !bD) dir = Direction.STOP;
 	}
 
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e)
+	{
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_CONTROL:
@@ -151,7 +166,8 @@ public class Tank {
 		locateDirection();		
 	}
 	
-	public Missile fire() {
+	public Missile fire()
+	{
 		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		Missile m = new Missile(x, y, ptDir, this.tc);
