@@ -60,19 +60,15 @@ public class Tank {
 		switch(dir) {
 		case L:
 			x -= XSPEED;
-			setPosition(x,y);
 			break;
 		case U:
 			y -= YSPEED;
-			setPosition(x,y);
 			break;
 		case R:
 			x += XSPEED;
-			setPosition(x,y);
 			break;
 		case D:
 			y += YSPEED;
-			setPosition(x,y);
 			break;
 		case STOP:
 			break;
@@ -82,10 +78,27 @@ public class Tank {
 			this.ptDir = this.dir;
 		}
 		
-		if(x < 0) x = 10;
-		if(y < 30) y = 30;
-		if(x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
-		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
+		if(x < 0)
+		{
+			x = 10;
+			setPosition(x,y);
+		}
+		if(y < 30)
+		{
+			y = 30;
+			setPosition(x,y);
+		}
+
+		if(x + Tank.WIDTH > TankClient.GAME_WIDTH)
+		{
+			x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
+			setPosition(x,y);
+		}
+		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
+		{
+			y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
+			setPosition(x,y);
+		}
 		
 	}
 	
