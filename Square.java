@@ -1,10 +1,23 @@
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Square
 {
 	Point position;
 	GameBoard board;
+	BufferedImage bimg = null;
+	String imge = "src/Grass1_opt.jpg";
+	String imge1 = "src/green_hill_icon_opt.png";
+	Image img;
+	Image grass = new ImageIcon(imge).getImage();
+	Image hill = new ImageIcon(imge1).getImage();
 	final int ROW = 5;
 	final int COL = 5;
 	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
@@ -13,6 +26,12 @@ public class Square
 	{
 		this.position = position;
 		this.board = board;
+		try
+		{
+			bimg = ImageIO.read(new File(imge));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	//Gets position in array/table
