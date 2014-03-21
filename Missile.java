@@ -1,5 +1,7 @@
 import java.awt.*;
 
+import javax.swing.ImageIcon;
+
 public class Missile {
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
@@ -7,8 +9,10 @@ public class Missile {
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
 	
+	String img = "src/missile-icon_opt.gif";
 	int x, y;
 	Tank.Direction dir;
+	Image missile = new ImageIcon(img).getImage();
 	
 	private boolean live = true;
 	
@@ -26,10 +30,12 @@ public class Missile {
 	}
 	
 	public void draw(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.BLACK);
-		g.fillOval(x, y, WIDTH, HEIGHT);
-		g.setColor(c);
+//		Color c = g.getColor();
+//		g.setColor(Color.BLACK);
+//		g.fillOval(x, y, WIDTH, HEIGHT);
+//		g.setColor(c);
+		
+		g.drawImage(missile, x, y, null);
 		
 		move();
 	}

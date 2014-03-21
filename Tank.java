@@ -1,15 +1,20 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Tank {
 	public static final int XSPEED = 40;
 	public static final int YSPEED = 40;
 	
-	public static final int WIDTH = 20;
-	public static final int HEIGHT = 20;
-	
+	public static int WIDTH= 20;
+	public static int HEIGHT= 20;
+	BufferedImage bimg = null;
 	TankClient tc;
 	Point p;
 	Image tankImage;	
@@ -31,6 +36,14 @@ public class Tank {
 		this.y = y;
 		p = new Point(x,y);
 		tankImage = new ImageIcon(img).getImage();
+		try
+		{
+			bimg = ImageIO.read(new File(img));
+			WIDTH = bimg.getWidth();
+			HEIGHT = bimg.getHeight();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -40,6 +53,14 @@ public class Tank {
 		this.tc = tc;
 		p = new Point(x,y);
 		tankImage = new ImageIcon(img).getImage();
+		try
+		{
+			bimg = ImageIO.read(new File(img));
+			WIDTH = bimg.getWidth();
+			HEIGHT = bimg.getHeight();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
