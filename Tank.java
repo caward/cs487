@@ -118,12 +118,12 @@ public class Tank {
 		
 		if(x < 0)
 		{
-			x = 5;//10;
+			x = 6;//10;
 			setPosition(x,y);
 		}
-		if(y < 25)
+		if(y < 30)
 		{
-			y = 25;//30
+			y = 30;//30
 			setPosition(x,y);
 		}
 
