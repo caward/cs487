@@ -15,7 +15,6 @@ public class Missile {
 	Tank.Direction dir;
 	Image missile = new ImageIcon(img).getImage();
 	Image temp = new ImageIcon(img).getImage();
-	//enum Direction {L, U, R, D, STOP};
 	private boolean live = true;
 	
 	private TankClient tc;
