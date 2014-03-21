@@ -1,7 +1,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.ImageIcon;
 
 public class Tank {
@@ -13,8 +12,11 @@ public class Tank {
 	
 	TankClient tc;
 	Point p;
-	Image tankImage;
+	Image tankImage;	
+	String img = "src/abrams_m1_battle_tank32.png";
 	
+	
+		
 	private int x, y;
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
@@ -28,7 +30,8 @@ public class Tank {
 		this.x = x;
 		this.y = y;
 		p = new Point(x,y);
-		tankImage = new ImageIcon("images/abrams_m1_battle_tank16.png").getImage();
+		tankImage = new ImageIcon(img).getImage();
+		
 	}
 	
 	public Tank(int x, int y, TankClient tc)
@@ -36,32 +39,34 @@ public class Tank {
 		this(x, y);
 		this.tc = tc;
 		p = new Point(x,y);
-		tankImage = new ImageIcon("images/abrams_m1_battle_tank32.png").getImage();
+		tankImage = new ImageIcon(img).getImage();
+		
 	}
 	
 	public void draw(Graphics g)
 	{
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-//		g.drawImage(tankImage,x,y,null);
-		g.fillRect(x, y, WIDTH, HEIGHT);
-		g.setColor(c);
+		//Color c = g.getColor();
+		//g.setColor(Color.RED);
+		g.drawImage(tankImage,x,y,null);
 		
-		switch(ptDir)
-		{
-		case L:
-			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x - 4, y + Tank.HEIGHT/2);
-			break;
-		case U:
-			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y - 4);
-			break;
-		case R:
-			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH + 4, y + Tank.HEIGHT/2);
-			break;
-		case D:
-			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT + 4);
-			break;
-		}
+		//g.fillRect(x, y, WIDTH, HEIGHT);
+		//g.setColor(c);
+		
+//		switch(ptDir)
+//		{
+//		case L:
+//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x - 4, y + Tank.HEIGHT/2);
+//			break;
+//		case U:
+//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y - 4);
+//			break;
+//		case R:
+//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH + 4, y + Tank.HEIGHT/2);
+//			break;
+//		case D:
+//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT + 4);
+//			break;
+//		}
 		
 		move();
 	}
@@ -92,12 +97,12 @@ public class Tank {
 		
 		if(x < 0)
 		{
-			x = 10;
+			x = 5;//10;
 			setPosition(x,y);
 		}
-		if(y < 30)
+		if(y < 25)
 		{
-			y = 30;
+			y = 25;//30
 			setPosition(x,y);
 		}
 

@@ -1,33 +1,56 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class TankClient extends Frame {
 	public static final int GAME_WIDTH = 680;
 	public static final int GAME_HEIGHT = 700;
 	
 	
-	Tank myTank = new Tank(10, 30, this);
+	Tank myTank = new Tank(5, 25, this);
 	List<Missile> missiles = new ArrayList<Missile>();
-	
+	BufferedImage bimg = null;
 	Image offScreenImage = null;
+	String imge = "src/Grass1_opt.jpg";
+	String imge1 = "src/green_hill_icon_opt.png";
+	Image img;
+	Image grass = new ImageIcon(imge).getImage();
+	Image hill = new ImageIcon(imge1).getImage();
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
+		try
+		{
+			bimg = ImageIO.read(new File(imge));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		
+		//Color c = g.getColor();
+		g.setColor(Color.WHITE);
+		for(int i = 0; i < 17; i ++)
+		{
+			for(int j = 0; j<17; j++)
+			{
+				//if(j%2==0)
+				img = ((i%2==0&&j%2==0) ? grass:hill);
+				g.drawImage(img, i * bimg.getWidth(), 22+j*bimg.getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
+				//g.drawImage(img, 0 * bimg.getWidth(), 20, null);//g.drawLine(i * 40, 0, i * 40, 700);
+			}
+		}
+		//g.setColor(c);
 		for(int i=0; i<missiles.size(); i++) {
 			Missile m = missiles.get(i);
 			m.draw(g);
 		}
-		
 		myTank.draw(g);
-		Color c = g.getColor();
-		g.setColor(Color.WHITE);
-		for(int i = 1; i < 17; i ++){
-			g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
-			g.drawLine(i * 40, 0, i * 40, 700);
-		}
-		g.setColor(c);
 	}
 	
 	public void update(Graphics g) {
