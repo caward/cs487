@@ -9,19 +9,18 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Tank {
-	public static final int XSPEED = 40;
-	public static final int YSPEED = 40;
+	public static int XSPEED = 40;
+	public static int YSPEED = 40;
 	
 	public static int WIDTH= 20;
 	public static int HEIGHT= 20;
 	BufferedImage bimg = null;
 	TankClient tc;
 	Point p;
-	Image tankImage;	
+	Image tankImage;
+	Image temp;
 	String img = "src/abrams_m1_battle_tank32.png";
-	
-	
-		
+				
 	private int x, y;
 	
 	private boolean bL=false, bU=false, bR=false, bD = false;
@@ -36,6 +35,7 @@ public class Tank {
 		this.y = y;
 		p = new Point(x,y);
 		tankImage = new ImageIcon(img).getImage();
+		temp = new ImageIcon(img).getImage();
 		try
 		{
 			bimg = ImageIO.read(new File(img));
@@ -53,6 +53,7 @@ public class Tank {
 		this.tc = tc;
 		p = new Point(x,y);
 		tankImage = new ImageIcon(img).getImage();
+		temp = new ImageIcon(img).getImage();
 		try
 		{
 			bimg = ImageIO.read(new File(img));
@@ -97,16 +98,44 @@ public class Tank {
 		switch(dir) {
 		case L:
 			x -= XSPEED;
+			rotateImage(90);
+			try {
+				Thread.sleep(70);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			break;
 		case U:
 			y -= YSPEED;
+			rotateImage(180);
+			try {
+				Thread.sleep(70);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			break;
 		case R:
 			x += XSPEED;
+			rotateImage(270);
+			try {
+				Thread.sleep(70);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
 			break;
 		case D:
 			y += YSPEED;
-			break;
+			rotateImage(0);
+			try {
+				Thread.sleep(70);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		break;
 		case STOP:
 			break;
 		}
@@ -194,11 +223,21 @@ public class Tank {
 	
 	public Missile fire()
 	{
-		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2;
+		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		Missile m = new Missile(x, y, ptDir, this.tc);
 		tc.missiles.add(m);
 		return m;
+	}
+	
+	private void rotateImage(double degree)
+	{
+		ImageIcon imgIcon = new ImageIcon(temp);
+		BufferedImage blankCanvas = new BufferedImage(imgIcon.getIconWidth(), imgIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2d = (Graphics2D)blankCanvas.getGraphics();
+		g2d.rotate(Math.toRadians(degree),imgIcon.getIconWidth()/2,imgIcon.getIconHeight()/2);
+		g2d.drawImage(temp,0,0,null);
+		tankImage = blankCanvas;
 	}
 
 	public void setPosition(int px, int py)

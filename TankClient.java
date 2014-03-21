@@ -29,15 +29,17 @@ public class TankClient extends Frame {
 		try
 		{
 			bimg = ImageIO.read(new File(imge));
+			Tank.XSPEED = bimg.getWidth();
+			Tank.YSPEED = bimg.getHeight();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		
 		//Color c = g.getColor();
 		g.setColor(Color.WHITE);
-		for(int i = 0; i < 17; i ++)
+		for(int i = 0; i < 14; i ++)
 		{
-			for(int j = 0; j<17; j++)
+			for(int j = 0; j<14; j++)
 			{
 				//if(j%2==0)
 				img = ((i%2==0&&j%2==0) ? grass:hill);
