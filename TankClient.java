@@ -10,8 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class TankClient extends Frame {
-	public static final int GAME_WIDTH = 680;
-	public static final int GAME_HEIGHT = 700;
+	public static int GAME_WIDTH = 680;
+	public static int GAME_HEIGHT = 700;
 		
 	Tank myTank = new Tank(6, 30, this);
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -36,9 +36,9 @@ public class TankClient extends Frame {
 		
 		//Color c = g.getColor();
 		g.setColor(Color.WHITE);
-		for(int i = 0; i < 14; i ++)
+		for(int i = 0; i < 17; i ++)
 		{
-			for(int j = 0; j<14; j++)
+			for(int j = 0; j<17; j++)
 			{
 				//if(j%2==0)
 				img = ((i%2==0&&j%2==0) ? grass:hill);
@@ -68,6 +68,16 @@ public class TankClient extends Frame {
 	}
 
 	public void lauchFrame() {
+		try
+		{
+			bimg = ImageIO.read(new File(imge));
+			Tank.XSPEED = bimg.getWidth();
+			Tank.YSPEED = bimg.getHeight();
+			GAME_WIDTH = 17*Tank.XSPEED;
+			GAME_HEIGHT = 17*Tank.YSPEED+20;
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		this.addWindowListener(new WindowAdapter() {

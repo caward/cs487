@@ -159,13 +159,13 @@ public class Tank {
 		if(x + Tank.WIDTH > TankClient.GAME_WIDTH)
 		{
 			//x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
-			x=630;
+			x=TankClient.GAME_WIDTH-42;//630;
 			setPosition(x,y);
 		}
 		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
 		{
 			//y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
-			y=654;
+			y=TankClient.GAME_HEIGHT-38;//654;
 			setPosition(x,y);
 		}
 		
@@ -220,7 +220,7 @@ public class Tank {
 			bD = false;
 			break;
 		case KeyEvent.VK_D :
-			System.out.println(x+" "+y);
+			System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");
 			break;
 		}
 		locateDirection();		
