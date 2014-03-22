@@ -13,7 +13,7 @@ public class TankClient extends Frame {
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
 		
-	Tank myTank = new Tank(6, 30, this);
+	Tank myTank = new Tank(7, 30, this);
 	List<Missile> missiles = new ArrayList<Missile>();
 	BufferedImage bimg = null;
 	Image offScreenImage = null;

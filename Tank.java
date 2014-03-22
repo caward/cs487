@@ -147,7 +147,7 @@ public class Tank {
 		
 		if(x < 0)
 		{
-			x = 6;//10;
+			x = 7;//10;
 			setPosition(x,y);
 		}
 		if(y < 30)
