@@ -22,7 +22,7 @@ public class Tank {
 	String img = "src/abrams_m1_battle_tank32.png";
 				
 	private int x, y;
-	
+	public static boolean missileDestroyed = true;
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	enum Direction {L, U, R, D, STOP};
 	
@@ -165,7 +165,7 @@ public class Tank {
 		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
 		{
 			//y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
-			y=TankClient.GAME_HEIGHT-38;//654;
+			y=TankClient.GAME_HEIGHT-40;//654;
 			setPosition(x,y);
 		}
 		
@@ -205,7 +205,8 @@ public class Tank {
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_CONTROL:
-			fire();
+			if(missileDestroyed)
+				fire();
 			break;
 		case KeyEvent.VK_LEFT :
 			bL = false;
@@ -232,6 +233,7 @@ public class Tank {
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		Missile m = new Missile(x, y, ptDir, this.tc);
 		tc.missiles.add(m);
+		missileDestroyed = false;
 		return m;
 	}
 	

@@ -74,7 +74,7 @@ public class TankClient extends Frame {
 			Tank.XSPEED = bimg.getWidth();
 			Tank.YSPEED = bimg.getHeight();
 			GAME_WIDTH = 17*Tank.XSPEED;
-			GAME_HEIGHT = 17*Tank.YSPEED+20;
+			GAME_HEIGHT = 17*Tank.YSPEED+22;
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
