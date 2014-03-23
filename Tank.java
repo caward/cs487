@@ -25,7 +25,8 @@ public class Tank {
 	public static boolean missileDestroyed = true;
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	enum Direction {L, U, R, D, STOP};
-	
+	int healthBarWidth = 48;
+	int healthBarHeight = 5;
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 
@@ -67,12 +68,15 @@ public class Tank {
 	
 	public void draw(Graphics g)
 	{
-		//Color c = g.getColor();
-		//g.setColor(Color.RED);
+		Color c = g.getColor();
+		// This draws the tank
 		g.drawImage(tankImage,x,y,null);
-		
-		//g.fillRect(x, y, WIDTH, HEIGHT);
-		//g.setColor(c);
+		// This makes the outline of the healthbar 
+		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
+		//draws remaining health
+		g.setColor(Color.GREEN);
+		g.fillRect(x-7, y-8, 15, 5);
+		g.setColor(c);
 		
 //		switch(ptDir)
 //		{
@@ -173,22 +177,25 @@ public class Tank {
 	
 	public void keyPressed(KeyEvent e)
 	{
-		int key = e.getKeyCode();
-		switch(key) {
-		case KeyEvent.VK_LEFT :
-			bL = true;
-			break;
-		case KeyEvent.VK_UP :
-			bU = true;
-			break;
-		case KeyEvent.VK_RIGHT :
-			bR = true;
-			break;
-		case KeyEvent.VK_DOWN :
-			bD = true;
-			break;
+		if(missileDestroyed)
+		{
+			int key = e.getKeyCode();
+			switch(key) {
+			case KeyEvent.VK_LEFT :
+				bL = true;
+				break;
+			case KeyEvent.VK_UP :
+				bU = true;
+				break;
+			case KeyEvent.VK_RIGHT :
+				bR = true;
+				break;
+			case KeyEvent.VK_DOWN :
+				bD = true;
+				break;
+			}
+			locateDirection();
 		}
-		locateDirection();
 	}
 	
 	void locateDirection()
@@ -202,29 +209,32 @@ public class Tank {
 
 	public void keyReleased(KeyEvent e)
 	{
-		int key = e.getKeyCode();
-		switch(key) {
-		case KeyEvent.VK_CONTROL:
-			if(missileDestroyed)
-				fire();
-			break;
-		case KeyEvent.VK_LEFT :
-			bL = false;
-			break;
-		case KeyEvent.VK_UP :
-			bU = false;
-			break;
-		case KeyEvent.VK_RIGHT :
-			bR = false;
-			break;
-		case KeyEvent.VK_DOWN :
-			bD = false;
-			break;
-		case KeyEvent.VK_D :
-			System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");
-			break;
+		if(missileDestroyed)
+		{
+			int key = e.getKeyCode();
+			switch(key) {
+			case KeyEvent.VK_CONTROL:
+				if(missileDestroyed)
+					fire();
+				break;
+			case KeyEvent.VK_LEFT :
+				bL = false;
+				break;
+			case KeyEvent.VK_UP :
+				bU = false;
+				break;
+			case KeyEvent.VK_RIGHT :
+				bR = false;
+				break;
+			case KeyEvent.VK_DOWN :
+				bD = false;
+				break;
+			case KeyEvent.VK_D :
+				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
+				break;
+			}
+			locateDirection();
 		}
-		locateDirection();		
 	}
 	
 	public Missile fire()
