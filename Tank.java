@@ -103,7 +103,6 @@ public class Tank {
 		{
 			switch(dir) {
 			case L:
-				//if(isClear(x,y,dir))
 				x -= XSPEED;
 				rotateImage(90);
 				try {
@@ -114,7 +113,6 @@ public class Tank {
 
 				break;
 			case U:
-				//if(isClear(x,y-YSPEED))
 				y -= YSPEED;
 				rotateImage(180);
 				try {
@@ -125,7 +123,6 @@ public class Tank {
 
 				break;
 			case R:
-				//if(isClear(x+XSPEED,y))
 				x += XSPEED;
 				rotateImage(270);
 				try {
@@ -136,7 +133,6 @@ public class Tank {
 
 				break;
 			case D:
-				//if(isClear(x,y+YSPEED))
 				y += YSPEED;
 				rotateImage(0);
 				try {
@@ -219,19 +215,22 @@ public class Tank {
 			int key = e.getKeyCode();
 			switch(key) {
 			case KeyEvent.VK_LEFT :
+				dir = Direction.L;
 				bL = true;
 				break;
 			case KeyEvent.VK_UP :
+				dir = Direction.U;
 				bU = true;
 				break;
 			case KeyEvent.VK_RIGHT :
+				dir = Direction.R;
 				bR = true;
 				break;
 			case KeyEvent.VK_DOWN :
-				bD = true;
+				dir = Direction.D;
 				break;
 			}
-			locateDirection();
+			//locateDirection();
 		}
 	}
 	
@@ -255,22 +254,26 @@ public class Tank {
 					fire();
 				break;
 			case KeyEvent.VK_LEFT :
+				dir = Direction.STOP;
 				bL = false;
 				break;
 			case KeyEvent.VK_UP :
+				dir = Direction.STOP;
 				bU = false;
 				break;
 			case KeyEvent.VK_RIGHT :
+				dir = Direction.STOP;
 				bR = false;
 				break;
 			case KeyEvent.VK_DOWN :
+				dir = Direction.STOP;
 				bD = false;
 				break;
 			case KeyEvent.VK_D :
 				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
 				break;
 			}
-			locateDirection();
+			//locateDirection();
 		}
 	}
 	
