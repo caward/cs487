@@ -52,10 +52,20 @@ public class Missile {
 			rotateImage(0);
 			break;
 		}
+		if(isCollision())
+		{
+			
+		}
 		g.drawImage(missile, x, y-9, null);
 		move();
+
 	}
 	
+	private boolean isCollision() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public void rotateImage(double degree)
 	{
 		ImageIcon imgIcon = new ImageIcon(temp);
@@ -66,7 +76,8 @@ public class Missile {
 		missile = blankCanvas;
 	}
 
-	private void move() {
+	private void move()
+	{
 		switch(dir) {
 		case L:
 			x -= XSPEED;
@@ -84,7 +95,8 @@ public class Missile {
 			break;
 		}
 		
-		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT) {
+		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT)
+		{
 			live = false;
 			tc.missiles.remove(this);
 			Tank.missileDestroyed = true;

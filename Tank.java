@@ -75,7 +75,7 @@ public class Tank {
 		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
 		//draws remaining health
 		g.setColor(Color.GREEN);
-		g.fillRect(x-7, y-8, 15, 5);
+		g.fillRect(x-7, y-8, 20, 5);
 		g.setColor(c);
 		
 //		switch(ptDir)
@@ -99,82 +99,119 @@ public class Tank {
 	
 	void move()
 	{
-		switch(dir) {
-		case L:
-			x -= XSPEED;
-			rotateImage(90);
-			try {
-				Thread.sleep(70);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			break;
-		case U:
-			y -= YSPEED;
-			rotateImage(180);
-			try {
-				Thread.sleep(70);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			break;
-		case R:
-			x += XSPEED;
-			rotateImage(270);
-			try {
-				Thread.sleep(70);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			break;
-		case D:
-			y += YSPEED;
-			rotateImage(0);
-			try {
-				Thread.sleep(70);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		break;
-		case STOP:
-			break;
-		}
-		
-		if(this.dir != Direction.STOP)
+		if(isClear(x,y,dir))
 		{
-			this.ptDir = this.dir;
-		}
-		
-		if(x < 0)
-		{
-			x = 7;//10;
-			setPosition(x,y);
-		}
-		if(y < 30)
-		{
-			y = 30;//30
-			setPosition(x,y);
-		}
+			switch(dir) {
+			case L:
+				//if(isClear(x,y,dir))
+				x -= XSPEED;
+				rotateImage(90);
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 
-		if(x + Tank.WIDTH > TankClient.GAME_WIDTH)
-		{
-			//x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
-			x=TankClient.GAME_WIDTH-42;//630;
-			setPosition(x,y);
-		}
-		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
-		{
-			//y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
-			y=TankClient.GAME_HEIGHT-40;//654;
-			setPosition(x,y);
+				break;
+			case U:
+				//if(isClear(x,y-YSPEED))
+				y -= YSPEED;
+				rotateImage(180);
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			case R:
+				//if(isClear(x+XSPEED,y))
+				x += XSPEED;
+				rotateImage(270);
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			case D:
+				//if(isClear(x,y+YSPEED))
+				y += YSPEED;
+				rotateImage(0);
+				try {
+					Thread.sleep(70);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			case STOP:
+				break;
+			}
+
+
+
+			if(this.dir != Direction.STOP)
+			{
+				this.ptDir = this.dir;
+			}
+// MIGHT NOT NEED COMMENTED OUT SECTION BELOW
+			// Edge Cases to make sure that tank does not go off screen
+//			if(x < 0)
+//			{
+//				x = 7;//10;
+//				setPosition(x,y);
+//			}
+//			if(y < 30)
+//			{
+//				y = 30;//30
+//				setPosition(x,y);
+//			}
+//
+//			if(x + Tank.WIDTH > TankClient.GAME_WIDTH)
+//			{
+//				//x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
+//				x=TankClient.GAME_WIDTH-42;//630;
+//				setPosition(x,y);
+//			}
+//			if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
+//			{
+//				//y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
+//				y=TankClient.GAME_HEIGHT-40;//654;
+//				setPosition(x,y);
+//			}
 		}
 		
 	}
 	
+	private boolean isClear(int x, int y, Direction direction)
+	{
+		int tmpx,tmpy;
+		tmpx=x;
+		tmpy=y;
+		switch(direction) {
+		case L:
+			tmpx -= XSPEED;
+			break;
+		case U:
+			tmpy -= YSPEED;
+			break;
+		case R:
+			tmpx += XSPEED;
+			break;
+		case D:
+			tmpy += YSPEED;
+			break;
+		case STOP:
+			break;
+		}
+		if(tmpx<0||tmpy<0||tmpx>TankClient.GAME_WIDTH||tmpy>TankClient.GAME_HEIGHT) return false;
+		//Rectangle rect = new Rectangle(tmpx, tmpy, WIDTH, HEIGHT);
+		// TODO NEED TO ITERATE THROUGH ARRAY OF TANKS AND OBSTACLEs to see if rectangles intersect
+		return true;
+	}
+
 	public void keyPressed(KeyEvent e)
 	{
 		if(missileDestroyed)
