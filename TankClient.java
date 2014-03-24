@@ -40,7 +40,6 @@ public class TankClient extends Frame {
 		{
 			for(int j = 0; j<17; j++)
 			{
-				//if(j%2==0)
 				img = ((i%2==0&&j%2==0) ? grass:hill);
 				g.drawImage(img, i * bimg.getWidth(), 22+j*bimg.getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
 				//g.drawImage(img, 0 * bimg.getWidth(), 20, null);//g.drawLine(i * 40, 0, i * 40, 700);
