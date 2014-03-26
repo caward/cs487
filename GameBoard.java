@@ -8,17 +8,22 @@ public class GameBoard
 	Square[][] square;
 	ArrayList<Tank> tanks;
 	Point p;
+	int row;
+	int col;
 
 	public GameBoard(int row, int col)
 	{
+		this.row = row;
+		this.col = col;
 		square = new Square[row][col];
+		setBoard();
 	}
 
-	public void setBoard()
+	private void setBoard()
 	{
 		for(int i=0; i<square.length; i++)
 		{          
-	        for(int j=0; j<square.length; j++)
+	        for(int j=0; j<square[i].length; j++)
 	        {
 	            double random = Math.random();
 	            if (random <.05)
@@ -44,7 +49,7 @@ public class GameBoard
 		{
 			for(int j = 0; j<square.length; j++)
 			{				
-				g.drawImage(square., i * bimg.getWidth(), 22+j*bimg.getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
+				g.drawImage(square[i][j].getImage(), i * square[i][j].getWidth(), 22+j*square[i][j].getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
 				//g.drawImage(img, 0 * bimg.getWidth(), 20, null);//g.drawLine(i * 40, 0, i * 40, 700);
 			}
 		}
@@ -57,5 +62,25 @@ public class GameBoard
 	public ArrayList<Tank> getTankList()
 	{
 		return tanks;
+	}
+
+	public int getImageWidth()
+	{
+		return square[0][0].getImageWidth();
+	}
+
+	public int getImageHeight()
+	{
+		return square[0][0].getImageHeight();
+	}
+
+	public int getGameWidth()
+	{
+		return row*getImageHeight();
+	}
+
+	public int getGameHeight()
+	{
+		return col*getImageWidth()+22;
 	}
 }

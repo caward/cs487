@@ -29,6 +29,8 @@ public class Tank {
 	int healthBarHeight = 5;
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
+	
+
 
 	public Tank(int x, int y)
 	{

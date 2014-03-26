@@ -22,6 +22,7 @@ public class TankClient extends Frame {
 	Image img;
 	Image grass = new ImageIcon(imge).getImage();
 	Image hill = new ImageIcon(imge1).getImage();
+	GameBoard board;
 	
 	public void paint(Graphics g)
 	{
@@ -67,6 +68,13 @@ public class TankClient extends Frame {
 	}
 
 	public void lauchFrame() {
+// DONT DELETE GAMEBOARD SETUP
+		//board = new GameBoard(17,17);
+		//Tank.XSPEED = board.getImageWidth();
+		//Tank.YSPEED = board.getImageHeight();
+		//GAME_WIDTH = board.getGameWidth();
+		//GAME_HEIGHT = board.getGameHeight();
+		
 		try
 		{
 			bimg = ImageIO.read(new File(imge));

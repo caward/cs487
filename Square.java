@@ -13,11 +13,10 @@ public class Square
 	Point position;
 	GameBoard board;
 	BufferedImage bimg = null;
-	String imge = "src/Grass1_opt.jpg";
+	public String imge = "src/Grass1_opt.jpg";
 	String imge1 = "src/green_hill_icon_opt.png";
 	Image img;
 	Image grass = new ImageIcon(imge).getImage();
-	Image hill = new ImageIcon(imge1).getImage();
 	final int ROW = 5;
 	final int COL = 5;
 	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
@@ -62,5 +61,20 @@ public class Square
 		}
 		return false;
 	}
+
+	public int getWidth()
+    {
+            return bimg.getWidth();
+    }
+        
+    public int getHeight()
+    {
+        return bimg.getHeight();
+    }
+        
+    public Image getImage()
+    {
+        return img1;
+    }
 
 }
