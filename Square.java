@@ -52,14 +52,31 @@ public class Square
 	public boolean isUsed()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
+		Rectangle rect = new Rectangle(p.getX(), p.getY(), getWidth(), getHeight());
 		for(Tank t : tankList)
 		{
-			if(t.getPosition().equals(getPosition()))
+			Rectangle rectT = new Rectangle(t.getPosition().getX(),t.getPosition.getY(), Tank.WIDTH, Tank.HEIGHT)
+			if(rect.intersects(rectT))
 			{
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public Tank getTank()
+	{
+		ArrayList <Tank> tankList =  board.getTankList();
+		Rectangle rect = new Rectangle(p.getX(), p.getY(), getWidth(), getHeight());
+		for(Tank t : tankList)
+		{
+			Rectangle rectT = new Rectangle(t.getPosition().getX(),t.getPosition.getY(), Tank.WIDTH, Tank.HEIGHT)
+			if(rect.intersects(rectT))
+			{
+				return t;
+			}
+		}
+		return null;
 	}
 
 	public int getWidth()

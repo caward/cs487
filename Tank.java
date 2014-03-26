@@ -29,7 +29,8 @@ public class Tank {
 	int healthBarHeight = 5;
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
-	
+	int sight = 3;
+
 
 
 	public Tank(int x, int y)
@@ -271,7 +272,22 @@ public class Tank {
 				dir = Direction.STOP;
 				bD = false;
 				break;
+			case KeyEvent.VK_W :
+				dir = Direction.U;
+				rotateImage(180);
+				break;
+			case KeyEvent.VK_A :
+				dir = Direction.R;
+				rotateImage(270);
+			case KeyEvent.VK_S :
+				dir = Direction.D;
+				rotateImage(0);
+				break;
 			case KeyEvent.VK_D :
+				dir = Direction.L;
+				rotateImage(90);
+				break;
+			case KeyEvent.VK_P :
 				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
 				break;
 			}
@@ -309,8 +325,23 @@ public class Tank {
 		return p;
 	}
 
-	public void setVisibility(int row, int col) {
+	public void setVisibility(int row, int col)
+	{
 		// TODO Auto-generated method stub
 		
 	}
+
+	public boolean isVisibile()
+	{
+
+	}
+
+	public void setSight(int num)
+	{
+		sight =num;
+	}
+
+
+
+
 }
