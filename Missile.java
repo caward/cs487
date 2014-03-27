@@ -12,7 +12,9 @@ public class Missile {
 	public static final int YSPEED = 10;
 	
 	public static int WIDTH = 10;
+
 	public static int HEIGHT = 10;
+	public static int damage = 10;
 	BufferedImage bimg = null;
 	String img = "src/launch16now.png";
 	String img1 = "src/nuclear.png";
@@ -32,9 +34,6 @@ public class Missile {
 		try
 		{
 			bimg = ImageIO.read(new File(img));
-			//WIDTH = bimg.getWidth();
-			//HEIGHT = bimg.getHeight();
-		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -44,10 +43,14 @@ public class Missile {
 		this.tc = tc;
 	}
 	
-	public void draw(Graphics g) {
+	public void draw(Graphics g)
+	{
 //		Color c = g.getColor();
 //		g.setColor(Color.BLACK);
 //		g.fillOval(x, y, WIDTH, HEIGHT);
+			//WIDTH = bimg.getWidth();
+			//HEIGHT = bimg.getHeight();
+//		}catch(IOException e) {
 //		g.setColor(c);
 		
 		//g.drawImage(missile, x, y, null);
@@ -89,6 +92,22 @@ public class Missile {
 			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
 			if(rect.intersects(rectT))
 			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean hitTank()
+	{
+		ArrayList <Tank> tankList =  tc.board.tanks;
+		Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
+		for(Tank t : tankList)
+		{
+			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+			if(rect.intersects(rectT))
+			{
+				t.takeHit(damage);
 				return true;
 			}
 		}

@@ -13,8 +13,11 @@ public class Tank {
 	public static int XSPEED = 40;
 	public static int YSPEED = 40;
 	
-	public static int WIDTH= 20;
-	public static int HEIGHT= 20;
+	public static int WIDTH = 20;
+	public static int HEIGHT = 20;
+	public static int MP = 200;
+	public static int HP = 200;
+
 	BufferedImage bimg = null;
 	TankClient tc;
 	Point p;
@@ -32,6 +35,8 @@ public class Tank {
 	private Direction ptDir = Direction.D;
 	int sight = 3;
 	private boolean visibile = true;
+	Player player;
+	double percentage = 1;
 
 	public Tank(int x, int y)
 	{
@@ -66,11 +71,11 @@ public class Tank {
 		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
 		//draws remaining health
 		g.setColor(Color.GREEN);
-		g.fillRect(x-7, y-8, 20, 5);
+		g.fillRect(x-7, y-8, healthBarHeight*percentage, 5);
 		g.setColor(c);
 		
 		
-		move();
+		//move();
 	}
 	
 	void move()
@@ -199,6 +204,7 @@ public class Tank {
 				dir = Direction.D;
 				break;
 			}
+			move();
 		}
 	}
 	
@@ -308,7 +314,27 @@ public class Tank {
 
 	public void setSight(int num)
 	{
-		sight =num;
+		sight = num;
+	}
+
+	public void setPlayer(Player p)
+	{
+		player = p;
+	}
+
+	public void takeHit(int damage)
+	{
+		private static double loss= 0;
+		loss+=damage;
+		if(HP-loss>0)
+		{
+			percentage = (double)(HP-loss)/(double)HP;
+		}else
+		{
+			
+		}
+		
+
 	}
 
 
