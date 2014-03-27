@@ -132,7 +132,7 @@ public class Tank {
 		
 	}
 	
-	
+	//Checks if the position is clear of obstacles and tanks
 	private boolean isClear(int x, int y, Direction direction)
 	{
 		int tmpx,tmpy;
@@ -199,8 +199,6 @@ public class Tank {
 				dir = Direction.D;
 				break;
 			}
-					
-			//locateDirection();
 		}
 	}
 	
@@ -215,6 +213,7 @@ public class Tank {
 
 	public void keyReleased(KeyEvent e)
 	{
+		//Can only go if there is no missile on screen
 		if(missileDestroyed)
 		{
 			int key = e.getKeyCode();
@@ -255,9 +254,6 @@ public class Tank {
 				dir = Direction.R;
 				rotateImage(270);
 				break;
-			case KeyEvent.VK_P :
-				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
-				break;
 			}
 			if(this.dir != Direction.STOP)
 			{
@@ -269,6 +265,7 @@ public class Tank {
 	
 	public Missile fire()
 	{
+		//Positions missile in the middle of tank
 		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 		Missile m = new Missile(x, y, ptDir, this.tc);
@@ -277,6 +274,7 @@ public class Tank {
 		return m;
 	}
 	
+	//Rotates image
 	private void rotateImage(double degree)
 	{
 		ImageIcon imgIcon = new ImageIcon(temp);

@@ -54,8 +54,10 @@ public class TankClient extends Frame {
 		myTank.draw(g);
 	}
 	
-	public void update(Graphics g) {
-		if(offScreenImage == null) {
+	public void update(Graphics g)
+	{
+		if(offScreenImage == null)
+		{
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();
@@ -67,8 +69,9 @@ public class TankClient extends Frame {
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 
-	public void lauchFrame() {
-// DONT DELETE GAMEBOARD SETUP
+	public void lauchFrame()
+	{
+		// GAMEBOARD SETUP
 		board = new GameBoard(17,17);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
