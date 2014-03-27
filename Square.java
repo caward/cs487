@@ -14,12 +14,11 @@ public class Square
 	Point position;
 	GameBoard board;
 	BufferedImage bimg = null;
-	public String imge = "src/Grass1_opt.jpg";
+	String imge = "src/Grass1_opt.jpg";
 	String imge1 = "src/green_hill_icon_opt.png";
 	Image img;
 	Image grass = new ImageIcon(imge).getImage();
-	final int ROW = 5;
-	final int COL = 5;
+	final int SIGHT = 3;
 	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
 
 	public Square(Point position, GameBoard board)
@@ -39,10 +38,20 @@ public class Square
 	{
 		return position;
 	}
+	
+	public void setImage(String image)
+	{
+		try
+		{
+			bimg = ImageIO.read(new File(image));
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void areaEffect(Tank tank)
 	{
-		tank.setVisibility(ROW,COL);
+		tank.setSight(SIGHT);
 	}
 
 	public Squares getSquareType()
@@ -92,7 +101,7 @@ public class Square
         
     public Image getImage()
     {
-        return grass;
+        return (Image)bimg;
     }
 
 }

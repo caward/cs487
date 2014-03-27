@@ -34,6 +34,10 @@ public class GameBoard
 	            {
 	            	p = new Point(i,j);
 	                square[i][j]= new Pit(p,this);
+	            }else if (random < .25)
+	            {
+	            	p = new Point(i,j);
+	                square[i][j]= new Hill(p,this);
 	            }else
 	            {
 	            	p = new Point(i,j);
@@ -49,8 +53,7 @@ public class GameBoard
 		{
 			for(int j = 0; j<square.length; j++)
 			{				
-				g.drawImage(square[i][j].getImage(), i * square[i][j].getWidth(), 22+j*square[i][j].getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
-				//g.drawImage(img, 0 * bimg.getWidth(), 20, null);//g.drawLine(i * 40, 0, i * 40, 700);
+				g.drawImage(square[i][j].getImage(), i * square[i][j].getWidth(), 22+j*square[i][j].getHeight(), null);
 			}
 		}
 	}

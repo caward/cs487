@@ -37,15 +37,15 @@ public class TankClient extends Frame {
 		
 		//Color c = g.getColor();
 		g.setColor(Color.WHITE);
-		for(int i = 0; i < 17; i ++)
-		{
-			for(int j = 0; j<17; j++)
-			{
-				img = ((i%2==0&&j%2==0) ? grass:hill);
-				g.drawImage(img, i * bimg.getWidth(), 22+j*bimg.getHeight(), null);//g.drawLine(0, 20 + i * 40, 680, 20 + i * 40);
-				//g.drawImage(img, 0 * bimg.getWidth(), 20, null);//g.drawLine(i * 40, 0, i * 40, 700);
-			}
-		}
+//		for(int i = 0; i < 17; i ++)
+//		{
+//			for(int j = 0; j<17; j++)
+//			{
+//				img = ((i%2==0&&j%2==0) ? grass:hill);
+//				g.drawImage(img, i * bimg.getWidth(), 22+j*bimg.getHeight(), null);
+//			}
+//		}
+		board.draw(g);
 		//g.setColor(c);
 		for(int i=0; i<missiles.size(); i++) {
 			Missile m = missiles.get(i);
@@ -69,22 +69,22 @@ public class TankClient extends Frame {
 
 	public void lauchFrame() {
 // DONT DELETE GAMEBOARD SETUP
-		//board = new GameBoard(17,17);
-		//Tank.XSPEED = board.getImageWidth();
-		//Tank.YSPEED = board.getImageHeight();
-		//GAME_WIDTH = board.getGameWidth();
-		//GAME_HEIGHT = board.getGameHeight();
+		board = new GameBoard(17,17);
+		Tank.XSPEED = board.getImageWidth();
+		Tank.YSPEED = board.getImageHeight();
+		GAME_WIDTH = board.getGameWidth();
+		GAME_HEIGHT = board.getGameHeight();
 		
-		try
-		{
-			bimg = ImageIO.read(new File(imge));
-			Tank.XSPEED = bimg.getWidth();
-			Tank.YSPEED = bimg.getHeight();
-			GAME_WIDTH = 17*Tank.XSPEED;
-			GAME_HEIGHT = 17*Tank.YSPEED+22;
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			bimg = ImageIO.read(new File(imge));
+//			Tank.XSPEED = bimg.getWidth();
+//			Tank.YSPEED = bimg.getHeight();
+//			GAME_WIDTH = 17*Tank.XSPEED;
+//			GAME_HEIGHT = 17*Tank.YSPEED+22;
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		}
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		this.addWindowListener(new WindowAdapter() {

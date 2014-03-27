@@ -2,13 +2,16 @@ import java.awt.Point;
 
 public class Obstacle extends Square
 {
+	String imge = "src/obstacle.png";
+	
 	public Obstacle(Point position, GameBoard board)
 	{
 		super(position, board);
+		setImage(imge);
 	}
 
-	final int ROW = 0;
-	final int COL = 0;
+	final int SIGHT = 0;
+	
 
 	public Squares getSquareType()
 	{

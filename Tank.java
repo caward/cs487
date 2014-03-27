@@ -32,8 +32,6 @@ public class Tank {
 	int sight = 3;
 	private boolean visibile = true;
 
-
-
 	public Tank(int x, int y)
 	{
 		this.x = x;
@@ -123,7 +121,7 @@ public class Tank {
 				break;
 			}
 
-
+			setPosition(x,y);
 
 			if(this.dir != Direction.STOP)
 			{
@@ -132,6 +130,7 @@ public class Tank {
 		}
 		
 	}
+	
 	
 	private boolean isClear(int x, int y, Direction direction)
 	{
