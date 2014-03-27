@@ -36,6 +36,11 @@ public class Square
 	//Gets position in array/table
 	public Point getPosition()
 	{
+		return new Point((int)(position.getX()*getWidth()),(int)(22+position.getY()*getHeight()));
+	}
+	
+	public Point getIndex()
+	{
 		return position;
 	}
 	

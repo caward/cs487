@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -154,8 +155,25 @@ public class Tank {
 			break;
 		}
 		if(tmpx<0||tmpy<0||tmpx>TankClient.GAME_WIDTH||tmpy>TankClient.GAME_HEIGHT) return false;
-		//Rectangle rect = new Rectangle(tmpx, tmpy, WIDTH, HEIGHT);
-		// TODO NEED TO ITERATE THROUGH ARRAY OF TANKS AND OBSTACLEs to see if rectangles intersect
+		Rectangle rect = new Rectangle(tmpx, tmpy, WIDTH, HEIGHT);
+		ArrayList <Square> obstacleList =  tc.board.obstacles;
+		for(Square t : obstacleList)
+		{
+			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
+			if(rect.intersects(rectT))
+			{
+				return false;
+			}
+		}
+//		ArrayList <Tank> tankList =  tc.board.getTankList();
+//		for(Tank t : tankList)
+//		{
+//			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+//			if(rect.intersects(rectT))
+//			{
+//				return false;
+//			}
+//		}
 		return true;
 	}
 
@@ -181,6 +199,7 @@ public class Tank {
 				dir = Direction.D;
 				break;
 			}
+					
 			//locateDirection();
 		}
 	}
@@ -223,28 +242,28 @@ public class Tank {
 			case KeyEvent.VK_W :
 				dir = Direction.U;
 				rotateImage(180);
-				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_A :
 				dir = Direction.L;
 				rotateImage(90);
-				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_S :
 				dir = Direction.D;
 				rotateImage(0);
-				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_D :
 				dir = Direction.R;
 				rotateImage(270);
-				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_P :
 				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
 				break;
 			}
-			//locateDirection();
+			if(this.dir != Direction.STOP)
+			{
+				this.ptDir = this.dir;
+			}
+			dir = Direction.STOP;
 		}
 	}
 	

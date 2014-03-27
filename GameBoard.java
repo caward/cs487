@@ -7,7 +7,7 @@ public class GameBoard
 {
 	Square[][] square;
 	ArrayList<Tank> tanks;
-	ArrayList<Square> obstacles;
+	ArrayList<Square> obstacles = new ArrayList<Square>();
 	Point p;
 	int row;
 	int col;
@@ -18,6 +18,7 @@ public class GameBoard
 		this.col = col;
 		square = new Square[row][col];
 		setBoard();
+		setObstacles();
 	}
 
 	private void setBoard()
@@ -58,6 +59,19 @@ public class GameBoard
 			}
 		}
 	}
+	
+	public void setObstacles()
+	{
+		for(int i=0; i<square.length; i++)
+		{          
+	        for(int j=0; j<square[i].length; j++)
+	        {
+	        	if(square[i][j].getSquareType()==Squares.OBSTACLE)
+	        		obstacles.add(square[i][j]);
+	        }
+		}
+	}
+	
 	public void setTankList(ArrayList<Tank> t)
 	{
 		tanks = t;
