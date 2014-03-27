@@ -15,9 +15,11 @@ public class Missile {
 	public static int HEIGHT = 10;
 	BufferedImage bimg = null;
 	String img = "src/launch16now.png";
+	String img1 = "src/nuclear.png";
 	int x, y;
 	Tank.Direction dir;
 	Image missile = new ImageIcon(img).getImage();
+	Image nuclear = new ImageIcon(img1).getImage();
 	Image temp = new ImageIcon(img).getImage();
 	private boolean live = true;
 	
@@ -66,9 +68,12 @@ public class Missile {
 		}
 		if(hitObstacle())
 		{
+			missile =nuclear;
+			g.drawImage(missile, x, y-9, null);		
 			live = false;
-			tc.missiles.remove(this);
+			tc.missiles.remove(this);		
 			Tank.missileDestroyed = true;
+			
 		}
 		g.drawImage(missile, x, y-9, null);
 		move();
