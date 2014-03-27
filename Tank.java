@@ -30,6 +30,7 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 	int sight = 3;
+	private boolean visibile = true;
 
 
 
@@ -54,19 +55,7 @@ public class Tank {
 	public Tank(int x, int y, TankClient tc)
 	{
 		this(x, y);
-		this.tc = tc;
-		p = new Point(x,y);
-		tankImage = new ImageIcon(img).getImage();
-		temp = new ImageIcon(img).getImage();
-		try
-		{
-			bimg = ImageIO.read(new File(img));
-			WIDTH = bimg.getWidth();
-			HEIGHT = bimg.getHeight();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		
+		this.tc = tc;		
 	}
 	
 	public void draw(Graphics g)
@@ -81,21 +70,6 @@ public class Tank {
 		g.fillRect(x-7, y-8, 20, 5);
 		g.setColor(c);
 		
-//		switch(ptDir)
-//		{
-//		case L:
-//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x - 4, y + Tank.HEIGHT/2);
-//			break;
-//		case U:
-//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y - 4);
-//			break;
-//		case R:
-//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH + 4, y + Tank.HEIGHT/2);
-//			break;
-//		case D:
-//			g.drawLine(x + Tank.WIDTH/2, y + Tank.HEIGHT/2, x + Tank.WIDTH/2, y + Tank.HEIGHT + 4);
-//			break;
-//		}
 		
 		move();
 	}
@@ -155,31 +129,6 @@ public class Tank {
 			{
 				this.ptDir = this.dir;
 			}
-// MIGHT NOT NEED COMMENTED OUT SECTION BELOW
-			// Edge Cases to make sure that tank does not go off screen
-//			if(x < 0)
-//			{
-//				x = 7;//10;
-//				setPosition(x,y);
-//			}
-//			if(y < 30)
-//			{
-//				y = 30;//30
-//				setPosition(x,y);
-//			}
-//
-//			if(x + Tank.WIDTH > TankClient.GAME_WIDTH)
-//			{
-//				//x = TankClient.GAME_WIDTH - Tank.WIDTH - 10;
-//				x=TankClient.GAME_WIDTH-42;//630;
-//				setPosition(x,y);
-//			}
-//			if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT)
-//			{
-//				//y = TankClient.GAME_HEIGHT - Tank.HEIGHT - 10;
-//				y=TankClient.GAME_HEIGHT-40;//654;
-//				setPosition(x,y);
-//			}
 		}
 		
 	}
@@ -275,17 +224,22 @@ public class Tank {
 			case KeyEvent.VK_W :
 				dir = Direction.U;
 				rotateImage(180);
+				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_A :
-				dir = Direction.R;
-				rotateImage(270);
+				dir = Direction.L;
+				rotateImage(90);
+				dir = Direction.STOP;
+				break;
 			case KeyEvent.VK_S :
 				dir = Direction.D;
 				rotateImage(0);
+				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_D :
-				dir = Direction.L;
-				rotateImage(90);
+				dir = Direction.R;
+				rotateImage(270);
+				dir = Direction.STOP;
 				break;
 			case KeyEvent.VK_P :
 				System.out.println(TankClient.GAME_WIDTH+" "+TankClient.GAME_HEIGHT+"     774 798");// test; delete when done
@@ -333,7 +287,7 @@ public class Tank {
 
 	public boolean isVisibile()
 	{
-
+		return visibile ;
 	}
 
 	public void setSight(int num)
