@@ -7,6 +7,7 @@ public class GameBoard
 {
 	Square[][] square;
 	ArrayList<Tank> tanks;
+	ArrayList<Square> obstacles;
 	Point p;
 	int row;
 	int col;

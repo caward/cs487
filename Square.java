@@ -18,7 +18,7 @@ public class Square
 	String imge1 = "src/green_hill_icon_opt.png";
 	Image img;
 	Image grass = new ImageIcon(imge).getImage();
-	final int SIGHT = 3;
+	int SIGHT = 3;
 	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
 
 	public Square(Point position, GameBoard board)
@@ -102,6 +102,11 @@ public class Square
     public Image getImage()
     {
         return (Image)bimg;
+    }
+    
+    public void setSight(int s)
+    {
+    	SIGHT = s;
     }
 
 }
