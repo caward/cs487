@@ -66,12 +66,12 @@ public class GameBoard
 
 	public int getImageWidth()
 	{
-		return square[0][0].getImageWidth();
+		return square[0][0].getWidth();
 	}
 
 	public int getImageHeight()
 	{
-		return square[0][0].getImageHeight();
+		return square[0][0].getHeight();
 	}
 
 	public int getGameWidth()

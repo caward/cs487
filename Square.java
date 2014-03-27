@@ -1,5 +1,6 @@
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -52,10 +53,10 @@ public class Square
 	public boolean isUsed()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
-		Rectangle rect = new Rectangle(p.getX(), p.getY(), getWidth(), getHeight());
+		Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
 		for(Tank t : tankList)
 		{
-			Rectangle rectT = new Rectangle(t.getPosition().getX(),t.getPosition.getY(), Tank.WIDTH, Tank.HEIGHT)
+			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
 			if(rect.intersects(rectT))
 			{
 				return true;
@@ -67,10 +68,10 @@ public class Square
 	public Tank getTank()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
-		Rectangle rect = new Rectangle(p.getX(), p.getY(), getWidth(), getHeight());
+		Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
 		for(Tank t : tankList)
 		{
-			Rectangle rectT = new Rectangle(t.getPosition().getX(),t.getPosition.getY(), Tank.WIDTH, Tank.HEIGHT)
+			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
 			if(rect.intersects(rectT))
 			{
 				return t;
@@ -91,7 +92,7 @@ public class Square
         
     public Image getImage()
     {
-        return img1;
+        return grass;
     }
 
 }
