@@ -1,17 +1,17 @@
 public class Player
 {
 	String name = null;
-	long playerid = -1;
+	int playerid = -1;
 	Tank tank;
 
-	public Player(String name, long pid)
+	public Player(String name, int pid)
 	{
 		this.name = name;
 		playerid = pid;
 		this.tank = null;
 	}
 
-	public long getPlayerID()
+	public int getPlayerID()
 	{
 		return playerid;
 	}

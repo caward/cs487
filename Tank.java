@@ -75,8 +75,6 @@ public class Tank {
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
 		g.setColor(c);
 		
-		
-		//move();
 	}
 	
 	void move()
@@ -128,7 +126,7 @@ public class Tank {
 				break;
 			}
 
-			setPosition(x,y);
+			setPosition(x,y); //set current position of tank
 
 			if(this.dir != Direction.STOP)
 			{
