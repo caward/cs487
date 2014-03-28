@@ -34,6 +34,7 @@ public class Missile {
 		try
 		{
 			bimg = ImageIO.read(new File(img));
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
 	}

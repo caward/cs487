@@ -37,7 +37,7 @@ public class Tank {
 	private boolean visibile = true;
 	Player player;
 	double percentage = 1;
-
+	double loss = 0;
 	public Tank(int x, int y)
 	{
 		this.x = x;
@@ -71,7 +71,7 @@ public class Tank {
 		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
 		//draws remaining health
 		g.setColor(Color.GREEN);
-		g.fillRect(x-7, y-8, healthBarHeight*percentage, 5);
+		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
 		g.setColor(c);
 		
 		
@@ -324,7 +324,6 @@ public class Tank {
 
 	public void takeHit(int damage)
 	{
-		private static double loss= 0;
 		loss+=damage;
 		if(HP-loss>0)
 		{
