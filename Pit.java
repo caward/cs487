@@ -12,9 +12,6 @@ public class Pit extends Square
 		setSight(SIGHT);
 	}
 
-	
-
-
 	public Squares getSquareType()
 	{
 		return Squares.PIT;

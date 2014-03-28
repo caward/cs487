@@ -4,7 +4,7 @@ import java.awt.Point;
 public class Hill extends Square
 {
 	String imge = "src/GameHill.png";
-	int SIGHT = 7;
+	final int SIGHT = 7;
 	
 	public Hill(Point position, GameBoard board)
 	{
@@ -12,8 +12,6 @@ public class Hill extends Square
 		setImage(imge);
 		setSight(SIGHT);
 	}
-
-	
 
 	public Squares getSquareType()
 	{

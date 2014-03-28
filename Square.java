@@ -33,17 +33,20 @@ public class Square
 		}
 	}
 
-	//Gets position in array/table
+	//Gets position of square on screen
 	public Point getPosition()
 	{
 		return new Point((int)(position.getX()*getWidth()),(int)(22+position.getY()*getHeight()));
 	}
 	
-	public Point getIndex()
+	//Returns the index of the Square in the double array
+	public Point getSquareIndex()
 	{
 		return position;
 	}
 	
+	
+	//Sets the image of the square
 	public void setImage(String image)
 	{
 		try

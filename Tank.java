@@ -10,12 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Tank {
-	public static int XSPEED = 40;
-	public static int YSPEED = 40;
-	
-	public static int WIDTH = 20;
-	public static int HEIGHT = 20;
-	public static int MP = 200;
+	public static int XSPEED = 40; //Distance traveled in one move in the x direction
+	public static int YSPEED = 40; //Distance traveled in one move in the y direction
+	public static int WIDTH = 20; //Width of tank
+	public static int HEIGHT = 20; //Height of tank 
+	public static int MP = 200; 
 	public static int HP = 200;
 
 	BufferedImage bimg = null;
@@ -23,21 +22,23 @@ public class Tank {
 	Point p;
 	Image tankImage;
 	Image temp;
-	String img = "src/abrams_m1_battle_tank32.png";
-				
+	String img = "src/abrams_m1_battle_tank32.png"; //Tank Image pathway
+	Player player;
+	
 	private int x, y;
 	public static boolean missileDestroyed = true;
+	private double percentage = 1;
+	private double loss = 0;
 	private boolean bL=false, bU=false, bR=false, bD = false;
 	enum Direction {L, U, R, D, STOP};
-	int healthBarWidth = 48;
-	int healthBarHeight = 5;
+	private int healthBarWidth = 48; //Length of the health bar
+	private int healthBarHeight = 5; //Height of the health bar
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
-	int sight = 3;
-	private boolean visibile = true;
-	Player player;
-	double percentage = 1;
-	double loss = 0;
+	private int sight = 3;
+	private boolean visibile = true; //shows if tank is visibile or not on screen
+
+	
 	public Tank(int x, int y)
 	{
 		this.x = x;
@@ -85,7 +86,7 @@ public class Tank {
 			switch(dir) {
 			case L:
 				x -= XSPEED;
-				rotateImage(90);
+				rotateImage(90);//Turn tank to the left
 				try {
 					Thread.sleep(70);
 				} catch (InterruptedException e) {
@@ -95,7 +96,7 @@ public class Tank {
 				break;
 			case U:
 				y -= YSPEED;
-				rotateImage(180);
+				rotateImage(180); //Turn tank to up
 				try {
 					Thread.sleep(70);
 				} catch (InterruptedException e) {
@@ -105,7 +106,7 @@ public class Tank {
 				break;
 			case R:
 				x += XSPEED;
-				rotateImage(270);
+				rotateImage(270);//Turn tank to the right
 				try {
 					Thread.sleep(70);
 				} catch (InterruptedException e) {
@@ -114,7 +115,7 @@ public class Tank {
 
 				break;
 			case D:
-				y += YSPEED;
+				y += YSPEED;//Turn tank to down
 				rotateImage(0);
 				try {
 					Thread.sleep(70);
@@ -224,9 +225,8 @@ public class Tank {
 		{
 			int key = e.getKeyCode();
 			switch(key) {
-			case KeyEvent.VK_CONTROL:
-				if(missileDestroyed)
-					fire();
+			case KeyEvent.VK_CONTROL: //Control key fires missile
+				fire();
 				break;
 			case KeyEvent.VK_LEFT :
 				dir = Direction.STOP;
@@ -274,6 +274,7 @@ public class Tank {
 		//Positions missile in the middle of tank
 		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
 		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
+		
 		Missile m = new Missile(x, y, ptDir, this.tc);
 		tc.missiles.add(m);
 		missileDestroyed = false;
@@ -301,10 +302,9 @@ public class Tank {
 		return p;
 	}
 
-	public void setVisibility(int row, int col)
+	public void setVisibility(boolean see)
 	{
-		// TODO Auto-generated method stub
-		
+		visibile = see;	
 	}
 
 	public boolean isVisibile()
@@ -331,12 +331,6 @@ public class Tank {
 		}else
 		{
 			
-		}
-		
-
+		}	
 	}
-
-
-
-
 }

@@ -20,7 +20,8 @@ public class GameBoard
 		setBoard();
 		setObstacles();
 	}
-
+	
+	//Randomly creates Square field
 	private void setBoard()
 	{
 		for(int i=0; i<square.length; i++)
@@ -60,6 +61,7 @@ public class GameBoard
 		}
 	}
 	
+	//Makes of list of the obstacles on the screen
 	public void setObstacles()
 	{
 		for(int i=0; i<square.length; i++)

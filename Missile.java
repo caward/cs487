@@ -55,6 +55,8 @@ public class Missile {
 //		g.setColor(c);
 		
 		//g.drawImage(missile, x, y, null);
+		
+		//This changes the orientation of the missile
 		switch(dir)
 		{
 		case L:
@@ -70,20 +72,22 @@ public class Missile {
 			rotateImage(0);
 			break;
 		}
+		
+		// If an obstacle is hit an explosion is sent to the screen and and the missile is removed
 		if(hitObstacle())
 		{
 			missile =nuclear;
 			g.drawImage(missile, x, y-9, null);		
 			live = false;
 			tc.missiles.remove(this);		
-			Tank.missileDestroyed = true;
-			
+			Tank.missileDestroyed = true;	
 		}
 		g.drawImage(missile, x, y-9, null);
 		move();
 
 	}
 	
+	//Returns true if missile hits an obstacle 
 	private boolean hitObstacle()
 	{
 		ArrayList <Square> obstacleList =  tc.board.obstacles;
@@ -98,7 +102,8 @@ public class Missile {
 		}
 		return false;
 	}
-
+	
+	//Returns true if missile hits tank and adds damage to that tank
 	private boolean hitTank()
 	{
 		ArrayList <Tank> tankList =  tc.board.tanks;
@@ -115,6 +120,7 @@ public class Missile {
 		return false;
 	}
 
+	//Rotates missile image
 	public void rotateImage(double degree)
 	{
 		ImageIcon imgIcon = new ImageIcon(temp);
@@ -129,16 +135,16 @@ public class Missile {
 	{
 		switch(dir) {
 		case L:
-			x -= XSPEED;
+			x -= XSPEED; //Moves missile to the left
 			break;
 		case U:
-			y -= YSPEED;
+			y -= YSPEED; //Moves missile to up
 			break;
 		case R:
-			x += XSPEED;
+			x += XSPEED; //Moves missile to the right
 			break;
 		case D:
-			y += YSPEED;
+			y += YSPEED; //Moves missile to down
 			break;
 		case STOP:
 			break;
@@ -147,7 +153,7 @@ public class Missile {
 		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT)
 		{
 			live = false;
-			tc.missiles.remove(this);
+			tc.missiles.remove(this); //removes missile once gone off screen
 			Tank.missileDestroyed = true;
 		}
 	}
