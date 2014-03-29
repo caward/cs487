@@ -16,6 +16,7 @@ public class TankClient extends Frame {
 	Tank myTank = new Tank(7, 30, this);
 	Tank aiTank = new Tank_AI(7,30,this);
 	List<Missile> missiles = new ArrayList<Missile>();
+	ArrayList<Tank> tanks = new ArrayList<Tank>();
 	BufferedImage bimg = null;
 	Image offScreenImage = null;
 	String imge = "src/Grass1_opt.jpg";
@@ -80,6 +81,13 @@ public class TankClient extends Frame {
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
 		GAME_HEIGHT = board.getGameHeight();
+		tanks.add(aiTank);
+		board.setTankList(tanks);
+		
+		
+		//TEMPORARY
+		
+		
 		
 //		try
 //		{
