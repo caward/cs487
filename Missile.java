@@ -24,6 +24,7 @@ public class Missile {
 	Image nuclear = new ImageIcon(img1).getImage();
 	Image temp = new ImageIcon(img).getImage();
 	private boolean live = true;
+	Tank tank1;
 	
 	private TankClient tc;
 	
@@ -39,9 +40,10 @@ public class Missile {
 		}
 	}
 	
-	public Missile(int x, int y, Tank.Direction dir, TankClient tc) {
+	public Missile(int x, int y, Tank.Direction dir, TankClient tc, Tank t) {
 		this(x, y, dir);
 		this.tc = tc;
+		tank1 = t;
 	}
 	
 	public void draw(Graphics g)
@@ -115,11 +117,14 @@ public class Missile {
 			Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
 			for(Tank t : tankList)
 			{
-				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-				if(rect.intersects(rectT))
+				if(!t.equals(tank1))
 				{
-					t.takeHit(damage);
-					return true;
+					Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+					if(rect.intersects(rectT))
+					{
+						t.takeHit(damage);
+						return true;
+					}
 				}
 			}
 		}

@@ -6,19 +6,21 @@ import java.util.ArrayList;
 public class GameBoard
 {
 	Square[][] square;
-	ArrayList<Tank> tanks;
+	TankClient tc;
 	ArrayList<Square> obstacles = new ArrayList<Square>();
 	Point p;
 	int row;
 	int col;
 
-	public GameBoard(int row, int col)
+	public GameBoard(int row, int col,TankClient tc)
 	{
 		this.row = row;
 		this.col = col;
+		this.tc = tc;
 		square = new Square[row][col];
 		setBoard();
 		setObstacles();
+		
 	}
 	
 	//Randomly creates Square field
@@ -73,13 +75,8 @@ public class GameBoard
 	        }
 		}
 	}
-	
-	public void setTankList(ArrayList<Tank> t)
-	{
-		tanks = t;
-	}
-	
-	
+		
+
 	public Square[][] getSquareDblArray()
 	{
 		return square;
@@ -87,7 +84,7 @@ public class GameBoard
 	
 	public ArrayList<Tank> getTankList()
 	{
-		return tanks;
+		return tc.getTanks();
 	}
 
 	public int getImageWidth()

@@ -42,6 +42,7 @@ public class Tank {
 	private int moveCost= 0;
 	private int observeCost=0;
 	private int fireCost=0;
+	private boolean tankDestroyed = false;
 
 	
 	public Tank(int x, int y)
@@ -75,10 +76,15 @@ public class Tank {
 		// This draws the tank
 		g.drawImage(tankImage,x,y,null);
 		// This makes the outline of the healthbar 
+		if(!tankDestroyed)
+		{
 		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
 		//draws remaining health
 		g.setColor(Color.GREEN);
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
+		}else{
+			tc.getTanks().remove(this);
+		}
 		g.setColor(c);
 		
 	}
@@ -203,18 +209,21 @@ public class Tank {
 				}
 			}
 		}
-//		ArrayList <Tank> tankList =  tc.board.getTankList();
-//		if(tankList != null)
-//		{
-//			for(Tank t : tankList)
-//			{
-//				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-//				if(rect.intersects(rectT))
-//				{
-//					return false;
-//				}
-//			}
-//		}
+		ArrayList <Tank> tankList =  tc.board.getTankList();
+		if(tankList != null)
+		{
+			for(Tank t : tankList)
+			{
+				if(!t.equals(this))
+				{
+					Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+					if(rect.intersects(rectT))
+					{
+						return false;
+					}
+				}
+			}
+		}
 		return true;
 	}
 
@@ -316,7 +325,7 @@ public class Tank {
 			int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
 			int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
 
-			Missile m = new Missile(x, y, ptDir, this.tc);
+			Missile m = new Missile(x, y, ptDir, this.tc, this);
 			tc.missiles.add(m);
 			missileDestroyed = false;
 			//return m;
@@ -427,7 +436,7 @@ public class Tank {
 			percentage = (double)(HP-loss)/(double)HP;
 		}else
 		{
-			
+			tankDestroyed =true;
 		}	
 	}
 	

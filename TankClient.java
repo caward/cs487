@@ -76,13 +76,14 @@ public class TankClient extends Frame {
 	public void lauchFrame()
 	{
 		// GAMEBOARD SETUP
-		board = new GameBoard(17,17);
+		board = new GameBoard(17,17, this);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
 		GAME_HEIGHT = board.getGameHeight();
 		tanks.add(aiTank);
-		board.setTankList(tanks);
+		tanks.add(myTank);
+		
 		
 		
 		//TEMPORARY
@@ -114,6 +115,11 @@ public class TankClient extends Frame {
 		setVisible(true);
 		
 		new Thread(new PaintThread()).start();
+	}
+	
+	public ArrayList <Tank> getTanks()
+	{
+		return tanks;
 	}
 
 	public static void main(String[] args) {
