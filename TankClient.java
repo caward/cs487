@@ -26,14 +26,14 @@ public class TankClient extends Frame {
 	
 	public void paint(Graphics g)
 	{
-		try
-		{
-			bimg = ImageIO.read(new File(imge));
-			Tank.XSPEED = bimg.getWidth();
-			Tank.YSPEED = bimg.getHeight();
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			bimg = ImageIO.read(new File(imge));
+//			Tank.XSPEED = bimg.getWidth();
+//			Tank.YSPEED = bimg.getHeight();
+//		}catch(IOException e) {
+//			e.printStackTrace();
+//		}
 		
 		//Color c = g.getColor();
 		g.setColor(Color.WHITE);
