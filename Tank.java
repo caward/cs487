@@ -36,7 +36,12 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 	private int sight = 3;
-	private boolean visibile = true; //shows if tank is visibile or not on screen
+	private boolean visibile = true; //shows if tank is visible or not on screen
+	private int scanCost = 0;
+	private int localMP = 0;
+	private int moveCost= 0;
+	private int observeCost=0;
+	private int fireCost=0;
 
 	
 	public Tank(int x, int y)
@@ -81,56 +86,61 @@ public class Tank {
 	{
 		if(isClear(x,y,dir))
 		{
-			switch(dir) {
-			case L:
-				x -= XSPEED;
-				rotateImage(90);//Turn tank to the left
-				try {
-					Thread.sleep(70);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				break;
-			case U:
-				y -= YSPEED;
-				rotateImage(180); //Turn tank to up
-				try {
-					Thread.sleep(70);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				break;
-			case R:
-				x += XSPEED;
-				rotateImage(270);//Turn tank to the right
-				try {
-					Thread.sleep(70);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				break;
-			case D:
-				y += YSPEED;//Turn tank to down
-				rotateImage(0);
-				try {
-					Thread.sleep(70);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				break;
-			case STOP:
-				break;
-			}
-
-			setPosition(x,y); //set current position of tank
-
-			if(this.dir != Direction.STOP)
+			if(localMP>=moveCost)
 			{
-				this.ptDir = this.dir;
+				localMP-=moveCost;
+				switch(dir) {
+				case L:
+					x -= XSPEED;
+					rotateImage(90);//Turn tank to the left
+					try {
+						Thread.sleep(70);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					break;
+				case U:
+					y -= YSPEED;
+					rotateImage(180); //Turn tank to up
+					try {
+						Thread.sleep(70);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					break;
+				case R:
+					x += XSPEED;
+					rotateImage(270);//Turn tank to the right
+					try {
+						Thread.sleep(70);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					break;
+				case D:
+					y += YSPEED;//Turn tank to down
+					rotateImage(0);
+					try {
+						Thread.sleep(70);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					break;
+				case STOP:
+					break;
+				}
+
+				setPosition(x,y); //set current position of tank
+				getAreaEffect();  //Sets sight allowed by the square
+
+				if(this.dir != Direction.STOP)
+				{
+					this.ptDir = this.dir;
+				}
 			}
 		}
 		
@@ -160,22 +170,28 @@ public class Tank {
 		}
 		if(tmpx<0||tmpy<0||tmpx>TankClient.GAME_WIDTH||tmpy>TankClient.GAME_HEIGHT) return false;
 		Rectangle rect = new Rectangle(tmpx, tmpy, WIDTH, HEIGHT);
-		ArrayList <Square> obstacleList =  tc.board.obstacles;
-		for(Square t : obstacleList)
+		ArrayList <Square> obstacleList =  tc.board.getObstacleList();
+		if(obstacleList != null)
 		{
-			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
-			if(rect.intersects(rectT))
+			for(Square t : obstacleList)
 			{
-				return false;
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
+				if(rect.intersects(rectT))
+				{
+					return false;
+				}
 			}
 		}
 //		ArrayList <Tank> tankList =  tc.board.getTankList();
-//		for(Tank t : tankList)
+//		if(tankList != null)
 //		{
-//			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-//			if(rect.intersects(rectT))
+//			for(Tank t : tankList)
 //			{
-//				return false;
+//				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+//				if(rect.intersects(rectT))
+//				{
+//					return false;
+//				}
 //			}
 //		}
 		return true;
@@ -201,6 +217,9 @@ public class Tank {
 				break;
 			case KeyEvent.VK_DOWN :
 				dir = Direction.D;
+				break;
+			case KeyEvent.VK_P :
+				System.out.println("Sight: "+sight);
 				break;
 			}
 			move();
@@ -267,16 +286,75 @@ public class Tank {
 		}
 	}
 	
-	public Missile fire()
+	public void fire()
 	{
-		//Positions missile in the middle of tank
-		int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
-		int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
-		
-		Missile m = new Missile(x, y, ptDir, this.tc);
-		tc.missiles.add(m);
-		missileDestroyed = false;
-		return m;
+		if(localMP>=fireCost)
+		{
+			localMP-=fireCost;
+			//Positions missile in the middle of tank
+			int x = this.x + Tank.WIDTH/2 - Missile.WIDTH/2 -9;
+			int y = this.y + Tank.HEIGHT/2 - Missile.HEIGHT/2;
+
+			Missile m = new Missile(x, y, ptDir, this.tc);
+			tc.missiles.add(m);
+			missileDestroyed = false;
+			//return m;
+		}
+	}
+	
+	//Gets the square that the tank is on
+	public Square getSquare()
+	{
+		Rectangle rect = new Rectangle(x, y, WIDTH, HEIGHT);
+		Square[][] squareList =  tc.board.getSquareDblArray();
+		Square t = null;
+		for(int i=0; i<squareList.length; i++)
+		{
+			for(int j=0; j<squareList[i].length; j++)
+			{
+				t = squareList[i][j];
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
+				if(rect.intersects(rectT))
+				{
+					return t;
+				}
+			}
+		}
+		return null;
+	}
+	
+	//Gets the Effect that happens on the square
+	public void getAreaEffect()
+	{
+		Square s = getSquare();
+		s.areaEffect(this);
+	}
+	
+	//Makes all tanks visible on screen 
+	public void scan()
+	{
+		if(localMP>=scanCost)
+		{
+			localMP -= scanCost;
+			ArrayList <Tank> tanks = tc.board.getTankList();;
+			if(tanks != null)
+			{
+				for(Tank tank: tanks)
+				{
+					tank.setVisibility(true);
+				}
+			}
+		}
+	}
+	
+	//Increases sight
+	public void observe()
+	{
+		if(localMP>=observeCost)
+		{
+			localMP-=observeCost;
+			setSight(5);
+		}
 	}
 	
 	//Rotates image

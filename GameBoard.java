@@ -79,6 +79,12 @@ public class GameBoard
 		tanks = t;
 	}
 	
+	
+	public Square[][] getSquareDblArray()
+	{
+		return square;
+	}
+	
 	public ArrayList<Tank> getTankList()
 	{
 		return tanks;
@@ -102,5 +108,10 @@ public class GameBoard
 	public int getGameHeight()
 	{
 		return col*getImageWidth()+22;
+	}
+
+	public ArrayList<Square> getObstacleList()
+	{
+		return obstacles;
 	}
 }

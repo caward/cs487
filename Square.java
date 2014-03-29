@@ -57,6 +57,7 @@ public class Square
 		}
 	}
 
+	//Sets the vision of tank
 	public void areaEffect(Tank tank)
 	{
 		tank.setSight(SIGHT);
@@ -70,13 +71,16 @@ public class Square
 	public boolean isUsed()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
-		Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
-		for(Tank t : tankList)
+		if(tankList != null )
 		{
-			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-			if(rect.intersects(rectT))
+			Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
+			for(Tank t : tankList)
 			{
-				return true;
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+				if(rect.intersects(rectT))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -85,13 +89,16 @@ public class Square
 	public Tank getTank()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
-		Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
-		for(Tank t : tankList)
+		if(tankList != null)
 		{
-			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-			if(rect.intersects(rectT))
+			Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
+			for(Tank t : tankList)
 			{
-				return t;
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+				if(rect.intersects(rectT))
+				{
+					return t;
+				}
 			}
 		}
 		return null;

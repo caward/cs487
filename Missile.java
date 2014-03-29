@@ -90,14 +90,17 @@ public class Missile {
 	//Returns true if missile hits an obstacle 
 	private boolean hitObstacle()
 	{
-		ArrayList <Square> obstacleList =  tc.board.obstacles;
-		Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
-		for(Square t : obstacleList)
+		ArrayList <Square> obstacleList =  tc.board.getObstacleList();
+		if(obstacleList != null)
 		{
-			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
-			if(rect.intersects(rectT))
+			Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
+			for(Square t : obstacleList)
 			{
-				return true;
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
+				if(rect.intersects(rectT))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -106,15 +109,18 @@ public class Missile {
 	//Returns true if missile hits tank and adds damage to that tank
 	private boolean hitTank()
 	{
-		ArrayList <Tank> tankList =  tc.board.tanks;
-		Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
-		for(Tank t : tankList)
+		ArrayList <Tank> tankList =  tc.board.getTankList();
+		if(tankList != null)
 		{
-			Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
-			if(rect.intersects(rectT))
+			Rectangle rect = new Rectangle(x, y, Missile.WIDTH, Missile.HEIGHT);
+			for(Tank t : tankList)
 			{
-				t.takeHit(damage);
-				return true;
+				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
+				if(rect.intersects(rectT))
+				{
+					t.takeHit(damage);
+					return true;
+				}
 			}
 		}
 		return false;
@@ -161,6 +167,5 @@ public class Missile {
 	public boolean isLive() {
 		return live;
 	}
-	
 	
 }
