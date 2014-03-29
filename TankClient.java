@@ -14,6 +14,7 @@ public class TankClient extends Frame {
 	public static int GAME_HEIGHT = 700;
 		
 	Tank myTank = new Tank(7, 30, this);
+	Tank aiTank = new Tank_AI(7,30,this);
 	List<Missile> missiles = new ArrayList<Missile>();
 	BufferedImage bimg = null;
 	Image offScreenImage = null;
@@ -52,6 +53,8 @@ public class TankClient extends Frame {
 			m.draw(g);
 		}
 		myTank.draw(g);
+		aiTank.draw(g);
+		
 	}
 	
 	public void update(Graphics g)
@@ -128,10 +131,12 @@ public class TankClient extends Frame {
 
 		public void keyReleased(KeyEvent e) {
 			myTank.keyReleased(e);
+			aiTank.keyReleased(e);
 		}
 
 		public void keyPressed(KeyEvent e) {
 			myTank.keyPressed(e);
+			
 		}
 		
 	}

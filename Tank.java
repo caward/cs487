@@ -71,6 +71,7 @@ public class Tank {
 	public void draw(Graphics g)
 	{
 		Color c = g.getColor();
+		autoActive();
 		// This draws the tank
 		g.drawImage(tankImage,x,y,null);
 		// This makes the outline of the healthbar 
@@ -80,6 +81,26 @@ public class Tank {
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
 		g.setColor(c);
 		
+	}
+	
+	public void changeDirection(Direction d)
+	{
+		dir = d;
+	}
+	
+	public Direction getDirection()
+	{
+		return dir;
+	}
+	
+	public void setPtDir(Direction pt)
+	{
+		ptDir = pt;
+	}
+	
+	public Direction getPtDir()
+	{
+		return ptDir;
 	}
 	
 	void move()
@@ -204,19 +225,19 @@ public class Tank {
 			int key = e.getKeyCode();
 			switch(key) {
 			case KeyEvent.VK_LEFT :
-				dir = Direction.L;
+				 changeDirection(Direction.L);
 				bL = true;
 				break;
 			case KeyEvent.VK_UP :
-				dir = Direction.U;
+				changeDirection(Direction.U);
 				bU = true;
 				break;
 			case KeyEvent.VK_RIGHT :
-				dir = Direction.R;
+				changeDirection(Direction.R);
 				bR = true;
 				break;
 			case KeyEvent.VK_DOWN :
-				dir = Direction.D;
+				changeDirection(Direction.D);
 				break;
 			case KeyEvent.VK_P :
 				System.out.println("Sight: "+sight);
@@ -246,35 +267,35 @@ public class Tank {
 				fire();
 				break;
 			case KeyEvent.VK_LEFT :
-				dir = Direction.STOP;
+				changeDirection(Direction.STOP);
 				bL = false;
 				break;
 			case KeyEvent.VK_UP :
-				dir = Direction.STOP;
+				changeDirection(Direction.STOP);
 				bU = false;
 				break;
 			case KeyEvent.VK_RIGHT :
-				dir = Direction.STOP;
+				changeDirection(Direction.STOP);
 				bR = false;
 				break;
 			case KeyEvent.VK_DOWN :
-				dir = Direction.STOP;
+				changeDirection(Direction.STOP);
 				bD = false;
 				break;
 			case KeyEvent.VK_W :
-				dir = Direction.U;
+				changeDirection(Direction.U);
 				rotateImage(180);
 				break;
 			case KeyEvent.VK_A :
-				dir = Direction.L;
+				changeDirection(Direction.L);
 				rotateImage(90);
 				break;
 			case KeyEvent.VK_S :
-				dir = Direction.D;
+				changeDirection(Direction.D);
 				rotateImage(0);
 				break;
 			case KeyEvent.VK_D :
-				dir = Direction.R;
+				changeDirection(Direction.R);
 				rotateImage(270);
 				break;
 			}
@@ -282,7 +303,7 @@ public class Tank {
 			{
 				this.ptDir = this.dir;
 			}
-			dir = Direction.STOP;
+			changeDirection(Direction.STOP);
 		}
 	}
 	
@@ -408,5 +429,10 @@ public class Tank {
 		{
 			
 		}	
+	}
+	
+	public void autoActive()
+	{
+		
 	}
 }
