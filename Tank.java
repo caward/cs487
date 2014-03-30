@@ -72,7 +72,7 @@ public class Tank {
 	public void draw(Graphics g)
 	{
 		Color c = g.getColor();
-		autoActive();
+		//autoActive();
 		// This draws the tank
 		g.drawImage(tankImage,x,y,null);
 		// This makes the outline of the healthbar 
@@ -83,6 +83,7 @@ public class Tank {
 		g.setColor(Color.GREEN);
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
 		}else{
+			tankImage = null;
 			tc.getTanks().remove(this);
 		}
 		g.setColor(c);

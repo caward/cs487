@@ -161,7 +161,7 @@ public class Missile {
 			break;
 		}
 		
-		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT)
+		if(x < -10 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT)
 		{
 			live = false;
 			tc.missiles.remove(this); //removes missile once gone off screen

@@ -53,8 +53,10 @@ public class TankClient extends Frame {
 			Missile m = missiles.get(i);
 			m.draw(g);
 		}
-		myTank.draw(g);
-		aiTank.draw(g);
+		for(Tank t:tanks)
+		{
+			t.draw(g);
+		}
 		
 	}
 	
@@ -83,8 +85,6 @@ public class TankClient extends Frame {
 		GAME_HEIGHT = board.getGameHeight();
 		tanks.add(aiTank);
 		tanks.add(myTank);
-		
-		
 		
 		//TEMPORARY
 		
