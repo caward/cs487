@@ -22,7 +22,9 @@ public class Tank {
 	Point p;
 	Image tankImage;
 	Image temp;
+	Image blowup;
 	String img = "src/abrams_m1_battle_tank32.png"; //Tank Image pathway
+	String img1 = "src/nuclear32.png"; //Tank explosion Image Pathway
 	Player player;
 	
 	private int x, y;
@@ -52,6 +54,7 @@ public class Tank {
 		p = new Point(x,y);
 		tankImage = new ImageIcon(img).getImage();
 		temp = new ImageIcon(img).getImage();
+		blowup = new ImageIcon(img1).getImage();
 		try
 		{
 			bimg = ImageIO.read(new File(img));
@@ -72,7 +75,7 @@ public class Tank {
 	public void draw(Graphics g)
 	{
 		Color c = g.getColor();
-		//autoActive();
+		autoActive();
 		// This draws the tank
 		g.drawImage(tankImage,x,y,null);
 		// This makes the outline of the healthbar 
@@ -83,7 +86,8 @@ public class Tank {
 		g.setColor(Color.GREEN);
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
 		}else{
-			tankImage = null;
+			tankImage = blowup;
+			g.drawImage(tankImage,x,y,null);
 			tc.getTanks().remove(this);
 		}
 		g.setColor(c);
