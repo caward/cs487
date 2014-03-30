@@ -84,6 +84,7 @@ public class TankClient extends Frame {
 		GAME_HEIGHT = board.getGameHeight();
 		tanks.add(aiTank);
 		tanks.add(myTank);
+		randomPosition();
 		
 		//TEMPORARY
 		
@@ -119,6 +120,25 @@ public class TankClient extends Frame {
 	public ArrayList <Tank> getTanks()
 	{
 		return tanks;
+	}
+	
+	public void randomPosition()
+	{
+		Square[][] squareDbl = board.getSquareDblArray();
+		int width = board.getImageWidth();
+		int height = board.getImageHeight();
+		int randomRow;
+		int randomCol;
+
+		for(Tank t: tanks)
+		{
+			randomRow = (int) (Math.random() * squareDbl.length);
+			randomCol = (int) (Math.random() * squareDbl[0].length);
+			if(squareDbl[randomRow][randomCol].getSquareType()!=Squares.OBSTACLE||!squareDbl[randomRow][randomCol].isUsed())
+			{
+				t.setPosition(randomCol*width+7,randomRow*height+30);
+			}
+		}
 	}
 
 	public static void main(String[] args) {

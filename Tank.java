@@ -408,6 +408,8 @@ public class Tank {
 
 	public void setPosition(int px, int py)
 	{
+		x=px;
+		y=py;
 		p.setLocation(px, py);
 	}
 	
