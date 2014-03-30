@@ -56,8 +56,7 @@ public class TankClient extends Frame {
 		for(Tank t:tanks)
 		{
 			t.draw(g);
-		}
-		
+		}	
 	}
 	
 	public void update(Graphics g)

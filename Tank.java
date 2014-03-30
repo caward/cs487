@@ -38,7 +38,7 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 	private int sight = 3;
-	private boolean visibile = true; //shows if tank is visible or not on screen
+	private boolean visible = true; //shows if tank is visible or not on screen
 	private int scanCost = 0;
 	private int localMP = 0;
 	private int moveCost= 0;
@@ -77,7 +77,10 @@ public class Tank {
 		Color c = g.getColor();
 		autoActive();
 		// This draws the tank
-		g.drawImage(tankImage,x,y,null);
+		if(isVisible())
+		{
+			g.drawImage(tankImage,x,y,null);
+		}
 		// This makes the outline of the healthbar 
 		if(!tankDestroyed)
 		{
@@ -415,12 +418,12 @@ public class Tank {
 
 	public void setVisibility(boolean see)
 	{
-		visibile = see;	
+		visible = see;	
 	}
 
-	public boolean isVisibile()
+	public boolean isVisible()
 	{
-		return visibile ;
+		return visible ;
 	}
 
 	public void setSight(int num)
@@ -441,8 +444,13 @@ public class Tank {
 			percentage = (double)(HP-loss)/(double)HP;
 		}else
 		{
-			tankDestroyed =true;
+			tankDestroyed = true;
 		}	
+	}
+	
+	public void makeTanksInRangeVisible()
+	{
+		
 	}
 	
 	public void autoActive()
