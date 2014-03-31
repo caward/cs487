@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -7,19 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class Square
 {
-	Point position;
-	GameBoard board;
-	BufferedImage bimg = null;
-	String imge = "src/Grass1_opt.jpg";
-	String imge1 = "src/green_hill_icon_opt.png";
-	Image img;
-	Image grass = new ImageIcon(imge).getImage();
-	int SIGHT = 3;
-	//enum Squares {PLAIN, HILL, OBSTACLE, PIT }
+	private Point position;
+	private GameBoard board;
+	private BufferedImage bimg = null;
+	private String imge = "src/Grass1_opt.jpg";
+	private int SIGHT = 3;
+	private boolean isFoggy = true;
 
 	public Square(Point position, GameBoard board)
 	{
@@ -30,6 +28,19 @@ public class Square
 			bimg = ImageIO.read(new File(imge));
 		}catch(IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	//Draws Fog on square
+	public void draw(Graphics g)
+	{
+		if(isFoggy)
+		{
+			Color c = g.getColor();
+			Color myColour = new Color(169, 169,169, 128 );
+			g.setColor(myColour);
+			g.fillRect(position.x * getWidth(),22+position.y*getHeight(),getWidth(),getHeight());
+			g.setColor(c);
 		}
 	}
 
@@ -68,12 +79,13 @@ public class Square
 		return Squares.PLAIN;
 	}
 
+	//True if square is occupied by Tank
 	public boolean isUsed()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
 		if(tankList != null )
 		{
-			Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
+			Rectangle rect = new Rectangle((int)getPosition().getX(), (int)getPosition().getY(), getWidth(), getHeight());
 			for(Tank t : tankList)
 			{
 				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
@@ -86,12 +98,13 @@ public class Square
 		return false;
 	}
 
+	//Gets tank that is on square
 	public Tank getTank()
 	{
 		ArrayList <Tank> tankList =  board.getTankList();
 		if(tankList != null)
 		{
-			Rectangle rect = new Rectangle((int)position.getX(), (int)position.getY(), getWidth(), getHeight());
+			Rectangle rect = new Rectangle((int)getPosition().getX(), (int)getPosition().getY(), getWidth(), getHeight());
 			for(Tank t : tankList)
 			{
 				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), Tank.WIDTH, Tank.HEIGHT);
@@ -119,9 +132,14 @@ public class Square
         return (Image)bimg;
     }
     
+    //Sets field of vision that the Square allow the tank to see
     public void setSight(int s)
     {
     	SIGHT = s;
     }
-
+    
+    public void setFog(boolean f)
+    {
+    	isFoggy  = f;
+    }
 }

@@ -7,40 +7,34 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class Missile {
-	public static final int XSPEED = 10;
-	public static final int YSPEED = 10;
-	
-	public static int WIDTH = 10;
-
-	public static int HEIGHT = 10;
-	public static int damage = 10;
-	BufferedImage bimg = null;
-	String img = "src/launch16now.png";
-	String img1 = "src/nuclear.png";
-	int x, y;
-	Tank.Direction dir;
-	Image missile = new ImageIcon(img).getImage();
-	Image nuclear = new ImageIcon(img1).getImage();
-	Image temp = new ImageIcon(img).getImage();
+public class Missile
+{
+	private static final int XSPEED = 10; 					//Speed of missile in x direction
+	private static final int YSPEED = 10; 					//Speed of missile in y direction
+	public static int WIDTH = 10;							//Width of missile
+	public static int HEIGHT = 10;							//Height of missile
+	private static int damage = 10;							//Damage caused by missile
+	private String img = "src/launch16now.png"; 			//Missile Pathway
+	private String img1 = "src/nuclear.png";				//Missile explosion pathway
+	private int x, y;
+	private Tank.Direction dir;
+	private Image missile = new ImageIcon(img).getImage();  //Missile image
+	private Image nuclear = new ImageIcon(img1).getImage(); //Missile explosion image 
+	private Image temp = new ImageIcon(img).getImage();
 	private boolean live = true;
-	Tank tank1;
+	private Tank tank1;
 	
 	private TankClient tc;
 	
-	public Missile(int x, int y, Tank.Direction dir) {
+	public Missile(int x, int y, Tank.Direction dir)
+	{
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
-		try
-		{
-			bimg = ImageIO.read(new File(img));
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
-	public Missile(int x, int y, Tank.Direction dir, TankClient tc, Tank t) {
+	public Missile(int x, int y, Tank.Direction dir, TankClient tc, Tank t)
+	{
 		this(x, y, dir);
 		this.tc = tc;
 		tank1 = t;
@@ -48,16 +42,6 @@ public class Missile {
 	
 	public void draw(Graphics g)
 	{
-//		Color c = g.getColor();
-//		g.setColor(Color.BLACK);
-//		g.fillOval(x, y, WIDTH, HEIGHT);
-			//WIDTH = bimg.getWidth();
-			//HEIGHT = bimg.getHeight();
-//		}catch(IOException e) {
-//		g.setColor(c);
-		
-		//g.drawImage(missile, x, y, null);
-		
 		//This changes the orientation of the missile
 		switch(dir)
 		{
@@ -86,7 +70,6 @@ public class Missile {
 		}
 		g.drawImage(missile, x, y-9, null);
 		move();
-
 	}
 	
 	//Returns true if missile hits an obstacle 
@@ -149,13 +132,13 @@ public class Missile {
 			x -= XSPEED; //Moves missile to the left
 			break;
 		case U:
-			y -= YSPEED; //Moves missile to up
+			y -= YSPEED; //Moves missile up
 			break;
 		case R:
 			x += XSPEED; //Moves missile to the right
 			break;
 		case D:
-			y += YSPEED; //Moves missile to down
+			y += YSPEED; //Moves missile down
 			break;
 		case STOP:
 			break;

@@ -10,17 +10,7 @@ import javax.swing.ImageIcon;
 
 public class Tank_AI extends Tank {
 
-//	private int x, y;
-//	private int healthBarWidth = 48; // Length of the health bar
-//	private int healthBarHeight = 5; // Height of the health bar
-//	private double percentage = 1;
-//	private Direction dir = Direction.STOP;
-//	private Direction ptDir = Direction.D;
-//
-//	enum Direction {
-//		L, U, R, D, STOP
-//	};
-//
+
 	private boolean bL = false, bU = false, bR = false, bD = false;
 
 	public Tank_AI(int x, int y) {
@@ -43,19 +33,7 @@ public class Tank_AI extends Tank {
 			autoActive();
 	}
 
-//	public void draw(Graphics g) {
-//		Color c = g.getColor();
-//		// This draws the tank
-//		g.drawImage(tankImage, x, y, null);
-//		// This makes the outline of the healthbar
-//		g.drawRect(x - 7, y - 8, healthBarWidth, healthBarHeight);
-//		// draws remaining health
-//		g.setColor(Color.GREEN);
-//		g.fillRect(x - 7, y - 8, (int) (healthBarWidth * percentage), 5);
-//		g.setColor(c);
-//
-//	}
-
+	//Simple AI
 	public void autoActive()
 	{
 		if (missileDestroyed)
@@ -110,7 +88,10 @@ public class Tank_AI extends Tank {
 		}
 	}
 
-	
+	public void makeTanksInRangeVisible()
+	{
+		
+	}
 
 	/*
 	 * private void rotateImage(double degree) { ImageIcon imgIcon = new

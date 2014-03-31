@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class GameBoard
 {
-	Square[][] square;
-	TankClient tc;
-	ArrayList<Square> obstacles = new ArrayList<Square>();
-	Point p;
-	int row;
-	int col;
+	private Square[][] square;
+	private TankClient tc;
+	private ArrayList<Square> obstacles = new ArrayList<Square>();
+	private Point p;
+	private int row;
+	private int col;
 
 	public GameBoard(int row, int col,TankClient tc)
 	{
@@ -31,19 +31,19 @@ public class GameBoard
 	        for(int j=0; j<square[i].length; j++)
 	        {
 	            double random = Math.random();
-	            if (random <.05)
+	            if (random <.05) //Chance of square becoming an obstacle
 	            {
 	            	p = new Point(i,j);
 	                square[i][j]= new Obstacle(p,this);
-	            }else if (random < .15)
+	            }else if (random < .15) //Chance of square becoming a Pit
 	            {
 	            	p = new Point(i,j);
 	                square[i][j]= new Pit(p,this);
-	            }else if (random < .25)
+	            }else if (random < .25) //Chance of square becoming a hill
 	            {
 	            	p = new Point(i,j);
 	                square[i][j]= new Hill(p,this);
-	            }else
+	            }else					//Chance of square becoming an plain square
 	            {
 	            	p = new Point(i,j);
 	                square[i][j]= new Square(p,this);
@@ -52,6 +52,7 @@ public class GameBoard
 	    }
 	}
 	
+	//Draws Squares to screen
 	public void draw(Graphics g)
 	{
 		for(int i = 0; i < square.length; i ++)
@@ -59,6 +60,7 @@ public class GameBoard
 			for(int j = 0; j<square.length; j++)
 			{				
 				g.drawImage(square[i][j].getImage(), i * square[i][j].getWidth(), 22+j*square[i][j].getHeight(), null);
+				square[i][j].draw(g); //Draws fog
 			}
 		}
 	}

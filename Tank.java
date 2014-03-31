@@ -75,20 +75,21 @@ public class Tank {
 	public void draw(Graphics g)
 	{
 		Color c = g.getColor();
-		autoActive();
+		//autoActive();
 		// This draws the tank
 		if(isVisible())
 		{
 			g.drawImage(tankImage,x,y,null);
 		}
 		// This makes the outline of the healthbar 
-		if(!tankDestroyed)
+		if(!tankDestroyed && isVisible())
 		{
 		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
 		//draws remaining health
 		g.setColor(Color.GREEN);
 		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
-		}else{
+		}else if(tankDestroyed)
+		{
 			tankImage = blowup;
 			g.drawImage(tankImage,x,y,null);
 			tc.getTanks().remove(this);
@@ -171,6 +172,7 @@ public class Tank {
 
 				setPosition(x,y); //set current position of tank
 				getAreaEffect();  //Sets sight allowed by the square
+				makeTanksInRangeVisible();
 
 				if(this.dir != Direction.STOP)
 				{
@@ -336,7 +338,6 @@ public class Tank {
 			Missile m = new Missile(x, y, ptDir, this.tc, this);
 			tc.missiles.add(m);
 			missileDestroyed = false;
-			//return m;
 		}
 	}
 	
@@ -450,9 +451,62 @@ public class Tank {
 		}	
 	}
 	
+	//Makes tank within sight visible and adjusts fog
 	public void makeTanksInRangeVisible()
 	{
+		ArrayList<Tank> tanks = tc.getTanks();
+		Square[][] squareDbl = tc.board.getSquareDblArray();
+		int x,y;
+		for(Tank t: tanks)
+		{
+			if(!t.equals(this))
+			{
+				t.setVisibility(false);
+			}
+		}
+		for(int i = 0; i<squareDbl.length; i++)
+		{
+			for(int j = 0; j<squareDbl[0].length; j++)
+			{
+				squareDbl[i][j].setFog(true);
+			}
+				
+		}
+		Square square = getSquare();
+		x = (int)square.getSquareIndex().getX();
+		y = (int)square.getSquareIndex().getY();
 		
+		for(int i=0; i<=sight; i++)
+		{
+			//Left
+			if((x-i)>=0)
+			{
+				squareDbl[x-i][y].setFog(false);
+				if(squareDbl[x-i][y].isUsed())
+					squareDbl[x-i][y].getTank().setVisibility(true);
+			}
+			//Right
+			if((x+i)<squareDbl[0].length)
+			{
+				squareDbl[x+i][y].setFog(false);
+				if(squareDbl[x+i][y].isUsed())
+					squareDbl[x+i][y].getTank().setVisibility(true);
+			}
+			//Up
+			if((y-i)>=0)
+			{
+				squareDbl[x][y-i].setFog(false);
+				if(squareDbl[x][y-i].isUsed())
+					squareDbl[x][y-i].getTank().setVisibility(true);
+			}
+			//Down
+			if((y+i)<squareDbl.length)
+			{
+				squareDbl[x][y+i].setFog(false);
+				if(squareDbl[x][y+i].isUsed())
+					squareDbl[x][y+i].getTank().setVisibility(true);
+			}
+		}
 	}
 	
 	public void autoActive()

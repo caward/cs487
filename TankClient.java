@@ -19,37 +19,14 @@ public class TankClient extends Frame {
 	ArrayList<Tank> tanks = new ArrayList<Tank>();
 	BufferedImage bimg = null;
 	Image offScreenImage = null;
-	String imge = "src/Grass1_opt.jpg";
-	String imge1 = "src/green_hill_icon_opt.png";
-	Image img;
-	Image grass = new ImageIcon(imge).getImage();
-	Image hill = new ImageIcon(imge1).getImage();
 	GameBoard board;
 	
 	public void paint(Graphics g)
 	{
-//		try
-//		{
-//			bimg = ImageIO.read(new File(imge));
-//			Tank.XSPEED = bimg.getWidth();
-//			Tank.YSPEED = bimg.getHeight();
-//		}catch(IOException e) {
-//			e.printStackTrace();
-//		}
-		
-		//Color c = g.getColor();
 		g.setColor(Color.WHITE);
-//		for(int i = 0; i < 17; i ++)
-//		{
-//			for(int j = 0; j<17; j++)
-//			{
-//				img = ((i%2==0&&j%2==0) ? grass:hill);
-//				g.drawImage(img, i * bimg.getWidth(), 22+j*bimg.getHeight(), null);
-//			}
-//		}
 		board.draw(g);
-		//g.setColor(c);
-		for(int i=0; i<missiles.size(); i++) {
+		for(int i=0; i<missiles.size(); i++)
+		{
 			Missile m = missiles.get(i);
 			m.draw(g);
 		}
@@ -86,20 +63,6 @@ public class TankClient extends Frame {
 		tanks.add(myTank);
 		randomPosition();
 		
-		//TEMPORARY
-		
-		
-		
-//		try
-//		{
-//			bimg = ImageIO.read(new File(imge));
-//			Tank.XSPEED = bimg.getWidth();
-//			Tank.YSPEED = bimg.getHeight();
-//			GAME_WIDTH = 17*Tank.XSPEED;
-//			GAME_HEIGHT = 17*Tank.YSPEED+22;
-//		}catch(IOException e) {
-//			e.printStackTrace();
-//		}
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		this.addWindowListener(new WindowAdapter() {
@@ -122,6 +85,7 @@ public class TankClient extends Frame {
 		return tanks;
 	}
 	
+	//Places tanks on random part of field
 	public void randomPosition()
 	{
 		Square[][] squareDbl = board.getSquareDblArray();
