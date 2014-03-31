@@ -42,6 +42,7 @@ public class Tank
 	private boolean visible = true; //shows if tank is visible or not on screen
 	private int scanCost = 0;
 	private int localMP = 0;
+	private int runningTotalMP=0;
 	private int moveCost= 0;
 	private int observeCost=0;
 	private int fireCost=0;
@@ -56,6 +57,7 @@ public class Tank
 		tankImage = new ImageIcon(img).getImage();
 		temp = new ImageIcon(img).getImage();
 		blowup = new ImageIcon(img1).getImage();
+		runningTotalMP = MP;
 		try
 		{
 			bimg = ImageIO.read(new File(img));

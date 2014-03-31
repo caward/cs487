@@ -22,6 +22,7 @@ public class TankClient extends Frame
 	BufferedImage bimg = null;
 	Image offScreenImage = null;
 	GameBoard board;
+	Player p;
 	
 	public void paint(Graphics g)
 	{
@@ -55,6 +56,8 @@ public class TankClient extends Frame
 
 	public void lauchFrame()
 	{
+		//DBConnection dbc = new DBConnection();
+		//p = dbc.login();
 		// GAMEBOARD SETUP
 		board = new GameBoard(17,17, this);
 		Tank.XSPEED = board.getImageWidth();
