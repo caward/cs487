@@ -18,8 +18,8 @@ public class DBConnection
 		try
 		{
 		//Properties connectionProps = new Properties();
-		//Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://sql4.freemysqlhosting.net/sql435023";
+		Class.forName("com.mysql.jdbc.Driver");
+		String url = "jdbc:mysql://sql4.freemysqlhosting.net:3306/sql435023";
 		Driver jdbc = DriverManager.getDriver(url);
 		DriverManager.registerDriver(jdbc);
 		sqlConnection = DriverManager.getConnection(url, "sql435023", "hB9!zV9*");
@@ -30,11 +30,11 @@ public class DBConnection
 			System.out.println("Couldn't make the connection");
 		}
 		
-//		catch(ClassNotFoundException cnfe)
-//		{
-//			System.out.println("Class wasn't found...\n");
-//			cnfe.printStackTrace(System.out);
-//		}
+		catch(ClassNotFoundException cnfe)
+		{
+			System.out.println("Class wasn't found...\n");
+			cnfe.printStackTrace(System.out);
+		}
 	}
 
 	public Player login()
