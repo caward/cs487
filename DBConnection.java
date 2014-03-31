@@ -77,7 +77,7 @@ public class DBConnection
 				Statement st;
 				try {
 					st = sqlConnection.createStatement();
-					ResultSet rset = st.executeQuery("SELECT Name FROM Player WHERE Name=" +username);
+					ResultSet rset = st.executeQuery("SELECT Name FROM Player WHERE Name="+username);
 					if(rset.next())
 					{
 						name = rset.getString("Name");
@@ -86,7 +86,7 @@ public class DBConnection
 					{
 
 						ResultSet rset1 = st.executeQuery("SELECT COUNT(Name) FROM Player");
-						id = rset1.getInt("Name")+1;
+						id = rset1.getInt(1)+1;
 						PreparedStatement pStmt = sqlConnection.prepareStatement("INSERT INTO Player(Name, ID");
 						pStmt.setString(1, username);
 						pStmt.setInt(1, id);
