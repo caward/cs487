@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class TankClient extends Frame {
+public class TankClient extends Frame
+{
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
-		
+//	private String img = "src/TankCombat.png";
+//	private Image tankIcon = new ImageIcon(img).getImage();
 	Tank myTank = new Tank(7, 30, this);
 	Tank aiTank = new Tank_AI(7,30,this);
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -62,9 +64,10 @@ public class TankClient extends Frame {
 		tanks.add(aiTank);
 		tanks.add(myTank);
 		randomPosition();
-		
+		//this.setIconImage(tankIcon);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
+		
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class Tank {
+public class Tank
+{
 	public static int XSPEED = 40; //Distance traveled in one move in the x direction
 	public static int YSPEED = 40; //Distance traveled in one move in the y direction
 	public static int WIDTH = 20; //Width of tank
@@ -17,15 +18,15 @@ public class Tank {
 	public static int MP = 200; 
 	public static int HP = 200;
 
-	BufferedImage bimg = null;
-	TankClient tc;
-	Point p;
-	Image tankImage;
-	Image temp;
-	Image blowup;
-	String img = "src/abrams_m1_battle_tank32.png"; //Tank Image pathway
-	String img1 = "src/nuclear32.png"; //Tank explosion Image Pathway
-	Player player;
+	private BufferedImage bimg = null;
+	private TankClient tc;
+	private Point p;
+	private Image tankImage;
+	private Image temp;
+	private Image blowup;
+	private String img = "src/abrams_m1_battle_tank32.png"; //Tank Image pathway
+	private String img1 = "src/nuclear32.png"; //Tank explosion Image Pathway
+	private Player player;
 	
 	private int x, y;
 	public static boolean missileDestroyed = true;
@@ -169,11 +170,9 @@ public class Tank {
 				case STOP:
 					break;
 				}
-
-				setPosition(x,y); //set current position of tank
+				
 				getAreaEffect();  //Sets sight allowed by the square
-				makeTanksInRangeVisible();
-
+				setPosition(x,y); //set current position of tank
 				if(this.dir != Direction.STOP)
 				{
 					this.ptDir = this.dir;
@@ -412,6 +411,7 @@ public class Tank {
 		x=px;
 		y=py;
 		p.setLocation(px, py);
+		makeTanksInRangeVisible();
 	}
 	
 	public Point getPosition()
