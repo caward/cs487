@@ -56,10 +56,10 @@ public class TankClient extends Frame
 
 	public void lauchFrame()
 	{
-		DBConnection dbc = new DBConnection();
-		p = dbc.login();
-		p.setTank(myTank);
-		myTank.setPlayer(p);
+//		DBConnection dbc = new DBConnection();
+//		p = dbc.login();
+//		p.setTank(myTank);
+//		myTank.setPlayer(p);
 		// GAMEBOARD SETUP
 		board = new GameBoard(15,15, this);
 		Tank.XSPEED = board.getImageWidth();
