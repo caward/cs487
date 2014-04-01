@@ -56,10 +56,12 @@ public class TankClient extends Frame
 
 	public void lauchFrame()
 	{
-		//DBConnection dbc = new DBConnection();
-		//p = dbc.login();
+		DBConnection dbc = new DBConnection();
+		p = dbc.login();
+		p.setTank(myTank);
+		myTank.setPlayer(p);
 		// GAMEBOARD SETUP
-		board = new GameBoard(17,17, this);
+		board = new GameBoard(15,15, this);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
@@ -104,24 +106,28 @@ public class TankClient extends Frame
 		{
 			randomRow = (int) (Math.random() * squareDbl.length);
 			randomCol = (int) (Math.random() * squareDbl[0].length);
-			if(squareDbl[randomRow][randomCol].getSquareType()!=Squares.OBSTACLE||!squareDbl[randomRow][randomCol].isUsed())
+			if(squareDbl[randomRow][randomCol].getSquareType()!=Squares.OBSTACLE && !squareDbl[randomRow][randomCol].isUsed())
 			{
 				t.setPosition(randomCol*width+7,randomRow*height+30);
 			}
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		TankClient tc = new TankClient();
 		tc.lauchFrame();
 	}
 	
-	private class PaintThread implements Runnable {
-
-		public void run() {
-			while(true) {
+	private class PaintThread implements Runnable
+	{
+		public void run()
+		{
+			while(true)
+			{
 				repaint();
-				try {
+				try
+				{
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -130,18 +136,19 @@ public class TankClient extends Frame
 		}
 	}
 	
-	private class KeyMonitor extends KeyAdapter {
-
-		public void keyReleased(KeyEvent e) {
+	private class KeyMonitor extends KeyAdapter
+	{
+		public void keyReleased(KeyEvent e)
+		{
 			myTank.keyReleased(e);
 			aiTank.keyReleased(e);
 		}
 
-		public void keyPressed(KeyEvent e) {
+		public void keyPressed(KeyEvent e)
+		{
 			myTank.keyPressed(e);
 			
-		}
-		
+		}		
 	}
 }
 

@@ -9,8 +9,8 @@ public class GameBoard
 	private TankClient tc;
 	private ArrayList<Square> obstacles = new ArrayList<Square>();
 	private Point p;
-	private int row;
-	private int col;
+	private int row=0;
+	private int col=0;
 
 	public GameBoard(int row, int col,TankClient tc)
 	{
@@ -55,9 +55,9 @@ public class GameBoard
 	//Draws Squares to screen
 	public void draw(Graphics g)
 	{
-		for(int i = 0; i < square.length; i ++)
+		for(int i = 0; i < row; i ++)
 		{
-			for(int j = 0; j<square.length; j++)
+			for(int j = 0; j<col; j++)
 			{				
 				g.drawImage(square[i][j].getImage(), i * square[i][j].getWidth(), 22+j*square[i][j].getHeight(), null);
 				square[i][j].draw(g); //Draws fog
@@ -68,9 +68,9 @@ public class GameBoard
 	//Makes of list of the obstacles on the screen
 	public void setObstacles()
 	{
-		for(int i=0; i<square.length; i++)
+		for(int i=0; i<row; i++)
 		{          
-	        for(int j=0; j<square[i].length; j++)
+	        for(int j=0; j<col; j++)
 	        {
 	        	if(square[i][j].getSquareType()==Squares.OBSTACLE)
 	        		obstacles.add(square[i][j]);
@@ -107,6 +107,16 @@ public class GameBoard
 	public int getGameHeight()
 	{
 		return col*getImageWidth()+22;
+	}
+	
+	public int getRow()
+	{
+		return row;
+	}
+	
+	public int getCol()
+	{
+		return col;
 	}
 
 	public ArrayList<Square> getObstacleList()

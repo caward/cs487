@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -318,6 +317,16 @@ public class Tank
 				changeDirection(Direction.R);
 				rotateImage(270);
 				break;
+			case KeyEvent.VK_P :
+				System.out.println(player.getName()+" "+player.getPlayerID());
+				break;
+			case KeyEvent.VK_O :
+				observe();
+				setPosition(x,y);
+				break;
+			case KeyEvent.VK_L :
+				scan();
+				break;
 			}
 			if(this.dir != Direction.STOP)
 			{
@@ -348,9 +357,9 @@ public class Tank
 		Rectangle rect = new Rectangle(x, y, WIDTH, HEIGHT);
 		Square[][] squareList =  tc.board.getSquareDblArray();
 		Square t = null;
-		for(int i=0; i<squareList.length; i++)
+		for(int i=0; i<tc.board.getRow(); i++)
 		{
-			for(int j=0; j<squareList[i].length; j++)
+			for(int j=0; j<tc.board.getCol(); j++)
 			{
 				t = squareList[i][j];
 				Rectangle rectT = new Rectangle((int)t.getPosition().getX(),(int)t.getPosition().getY(), t.getWidth(), t.getHeight());
@@ -466,9 +475,9 @@ public class Tank
 				t.setVisibility(false);
 			}
 		}
-		for(int i = 0; i<squareDbl.length; i++)
+		for(int i = 0; i<tc.board.getRow(); i++)
 		{
-			for(int j = 0; j<squareDbl[0].length; j++)
+			for(int j = 0; j<tc.board.getCol(); j++)
 			{
 				squareDbl[i][j].setFog(true);
 			}
@@ -488,7 +497,7 @@ public class Tank
 					squareDbl[x-i][y].getTank().setVisibility(true);
 			}
 			//Right
-			if((x+i)<squareDbl[0].length)
+			if((x+i)<tc.board.getRow())
 			{
 				squareDbl[x+i][y].setFog(false);
 				if(squareDbl[x+i][y].isUsed())
@@ -502,7 +511,7 @@ public class Tank
 					squareDbl[x][y-i].getTank().setVisibility(true);
 			}
 			//Down
-			if((y+i)<squareDbl.length)
+			if((y+i)<tc.board.getCol())
 			{
 				squareDbl[x][y+i].setFog(false);
 				if(squareDbl[x][y+i].isUsed())

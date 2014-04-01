@@ -1,12 +1,6 @@
-import java.awt.GridLayout;
 import java.sql.*;
-import java.util.*;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 
 
 public class DBConnection
@@ -17,19 +11,18 @@ public class DBConnection
 	{
 		try
 		{
-		//Properties connectionProps = new Properties();
-		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://sql4.freemysqlhosting.net:3306/sql435023";
-		Driver jdbc = DriverManager.getDriver(url);
-		DriverManager.registerDriver(jdbc);
-		sqlConnection = DriverManager.getConnection(url, "sql435023", "hB9!zV9*");
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://sql4.freemysqlhosting.net:3306/sql435023";
+			Driver jdbc = DriverManager.getDriver(url);
+			DriverManager.registerDriver(jdbc);
+			sqlConnection = DriverManager.getConnection(url, "sql435023", "hB9!zV9*");
 		}
-		
+
 		catch(SQLException sqle)
 		{
 			System.out.println("Couldn't make the connection");
 		}
-		
+
 		catch(ClassNotFoundException cnfe)
 		{
 			System.out.println("Class wasn't found...\n");
@@ -43,6 +36,7 @@ public class DBConnection
 		String name=null;
 		int id=-1;
 		String username;
+		
 		while(true)
 		{
 			Object[] options = {"Register",
@@ -51,9 +45,11 @@ public class DBConnection
 			if (n==1)
 			{
 				username = JOptionPane.showInputDialog("Enter UserName");
-				try {
-					Statement st = sqlConnection.createStatement();
-					ResultSet rset = st.executeQuery("SELECT Name, ID FROM Player WHERE Name=" +username);
+				try
+				{
+					PreparedStatement stmt = sqlConnection.prepareStatement("SELECT Name, ID FROM Player WHERE Name = ?");
+					stmt.setString(1, username);
+					ResultSet rset = stmt.executeQuery();
 					if(rset.next())
 					{
 						id = rset.getInt("ID");
@@ -75,21 +71,24 @@ public class DBConnection
 			{
 				username = JOptionPane.showInputDialog("Enter UserName");
 				Statement st;
-				try {
-					st = sqlConnection.createStatement();
-					ResultSet rset = st.executeQuery("SELECT Name FROM Player WHERE Name="+username);
+				try
+				{
+					PreparedStatement stmt = sqlConnection.prepareStatement("SELECT Name, ID FROM Player WHERE Name = ?");
+					stmt.setString(1, username);
+					ResultSet rset = stmt.executeQuery();
 					if(rset.next())
 					{
 						name = rset.getString("Name");
 					}
 					if (name==null)
 					{
-
-						ResultSet rset1 = st.executeQuery("SELECT COUNT(Name) FROM Player");
-						id = rset1.getInt(1)+1;
-						PreparedStatement pStmt = sqlConnection.prepareStatement("INSERT INTO Player(Name, ID");
+						st = sqlConnection.createStatement();
+						ResultSet rset1 = st.executeQuery("SELECT COUNT(*) FROM Player");
+						if(rset1.next())
+							id = rset1.getInt(1)+1;
+						PreparedStatement pStmt = sqlConnection.prepareStatement("INSERT INTO Player (Name, ID) VALUES (?, ?)");
 						pStmt.setString(1, username);
-						pStmt.setInt(1, id);
+						pStmt.setInt(2, id);
 						pStmt.executeUpdate();
 						p=new Player(username,id);
 						return p;
