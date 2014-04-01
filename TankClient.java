@@ -104,11 +104,11 @@ public class TankClient extends Frame
 
 		for(Tank t: tanks)
 		{
-			randomRow = (int) (Math.random() * squareDbl.length);
-			randomCol = (int) (Math.random() * squareDbl[0].length);
+			randomRow = (int) (Math.random() * board.getRow());
+			randomCol = (int) (Math.random() * board.getCol());
 			if(squareDbl[randomRow][randomCol].getSquareType()!=Squares.OBSTACLE && !squareDbl[randomRow][randomCol].isUsed())
 			{
-				t.setPosition(randomCol*width+7,randomRow*height+30);
+				t.setPosition(randomRow*width+7,randomCol*height+30);
 			}
 		}
 	}
@@ -146,8 +146,7 @@ public class TankClient extends Frame
 
 		public void keyPressed(KeyEvent e)
 		{
-			myTank.keyPressed(e);
-			
+			myTank.keyPressed(e);		
 		}		
 	}
 }

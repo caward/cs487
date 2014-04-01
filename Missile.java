@@ -62,7 +62,7 @@ public class Missile
 		// If an obstacle is hit an explosion is sent to the screen and and the missile is removed
 		if(hitObstacle() || hitTank())
 		{
-			missile =nuclear;
+			missile = nuclear;
 			g.drawImage(missile, x, y-9, null);		
 			live = false;
 			tc.missiles.remove(this);		

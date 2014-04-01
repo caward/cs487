@@ -26,9 +26,9 @@ public class GameBoard
 	//Randomly creates Square field
 	private void setBoard()
 	{
-		for(int i=0; i<square.length; i++)
+		for(int i=0; i<row; i++)
 		{          
-	        for(int j=0; j<square[i].length; j++)
+	        for(int j=0; j<col; j++)
 	        {
 	            double random = Math.random();
 	            if (random <.05) //Chance of square becoming an obstacle
