@@ -402,7 +402,7 @@ public class Tank
 		if(localMP>=observeCost)
 		{
 			localMP-=observeCost;
-			setSight(5);
+			setSight(4);
 		}
 	}
 	
@@ -468,6 +468,7 @@ public class Tank
 		ArrayList<Tank> tanks = tc.getTanks();
 		Square[][] squareDbl = tc.board.getSquareDblArray();
 		int x,y;
+		int area = sight+1;
 		for(Tank t: tanks)
 		{
 			if(!t.equals(this))
@@ -489,6 +490,7 @@ public class Tank
 		
 		for(int i=0; i<=sight; i++)
 		{
+			area-=i;
 			//Left
 			if((x-i)>=0)
 			{
@@ -509,6 +511,22 @@ public class Tank
 				squareDbl[x][y-i].setFog(false);
 				if(squareDbl[x][y-i].isUsed())
 					squareDbl[x][y-i].getTank().setVisibility(true);
+				for(int j = 1; j<=area; j++)
+				{
+					
+					if((x+j)<tc.board.getRow())
+					{
+						squareDbl[x+j][y-i].setFog(false);
+						if(squareDbl[x+j][y-i].isUsed())
+							squareDbl[x+j][y-i].getTank().setVisibility(true);
+					}
+					if((x-j)>=0)
+					{
+						squareDbl[x-j][y-i].setFog(false);
+						if(squareDbl[x-j][y-i].isUsed())
+							squareDbl[x-j][y-i].getTank().setVisibility(true);
+					}
+				}
 			}
 			//Down
 			if((y+i)<tc.board.getCol())
@@ -516,6 +534,23 @@ public class Tank
 				squareDbl[x][y+i].setFog(false);
 				if(squareDbl[x][y+i].isUsed())
 					squareDbl[x][y+i].getTank().setVisibility(true);
+				for(int j = 1; j<=area; j++)
+				{	
+					
+					//make right 
+					if((x+j)<tc.board.getRow())
+					{
+						squareDbl[x+j][y+i].setFog(false);
+						if(squareDbl[x+j][y+i].isUsed())
+							squareDbl[x+j][y+i].getTank().setVisibility(true);
+					}
+					if((x-j)>=0)
+					{
+						squareDbl[x-j][y+i].setFog(false);
+						if(squareDbl[x-j][y+i].isUsed())
+							squareDbl[x-j][y+i].getTank().setVisibility(true);
+					}
+				}
 			}
 		}
 	}
