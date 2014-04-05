@@ -46,6 +46,7 @@ public class Tank
 	private int observeCost=0;
 	private int fireCost=0;
 	private boolean tankDestroyed = false;
+//	private int count=0;
 
 	
 	public Tank(int x, int y)
@@ -97,7 +98,13 @@ public class Tank
 			tc.getTanks().remove(this);
 		}
 		g.setColor(c);
-		
+//		if(count!=8 && dir != Direction.STOP)
+//		{
+//			move();
+//		}else{
+//			dir=Direction.STOP;
+//			count =0;
+//		}
 	}
 	
 	public void changeDirection(Direction d)
@@ -129,6 +136,8 @@ public class Tank
 				localMP-=moveCost;
 				switch(dir) {
 				case L:
+//					x-=6;
+//					count++;
 					x -= XSPEED;
 					rotateImage(90);//Turn tank to the left
 					try {
@@ -139,6 +148,8 @@ public class Tank
 
 					break;
 				case U:
+//					y-=6;
+//					count++;
 					y -= YSPEED;
 					rotateImage(180); //Turn tank to up
 					try {
@@ -149,6 +160,8 @@ public class Tank
 
 					break;
 				case R:
+//					x+=6;
+//					count++;
 					x += XSPEED;
 					rotateImage(270);//Turn tank to the right
 					try {
@@ -159,6 +172,8 @@ public class Tank
 
 					break;
 				case D:
+//					y+=6;
+//					count++;
 					y += YSPEED;//Turn tank to down
 					rotateImage(0);
 					try {
@@ -245,24 +260,28 @@ public class Tank
 			switch(key) {
 			case KeyEvent.VK_LEFT :
 				 changeDirection(Direction.L);
+				 move();
 				bL = true;
 				break;
 			case KeyEvent.VK_UP :
 				changeDirection(Direction.U);
+				move();
 				bU = true;
 				break;
 			case KeyEvent.VK_RIGHT :
 				changeDirection(Direction.R);
+				move();
 				bR = true;
 				break;
 			case KeyEvent.VK_DOWN :
 				changeDirection(Direction.D);
+				move();
 				break;
 			case KeyEvent.VK_P :
 				System.out.println("Sight: "+sight);
 				break;
 			}
-			move();
+			//move();
 		}
 	}
 	
@@ -286,19 +305,19 @@ public class Tank
 				fire();
 				break;
 			case KeyEvent.VK_LEFT :
-				changeDirection(Direction.STOP);
+				//changeDirection(Direction.STOP);
 				bL = false;
 				break;
 			case KeyEvent.VK_UP :
-				changeDirection(Direction.STOP);
+				//changeDirection(Direction.STOP);
 				bU = false;
 				break;
 			case KeyEvent.VK_RIGHT :
-				changeDirection(Direction.STOP);
+				//changeDirection(Direction.STOP);
 				bR = false;
 				break;
 			case KeyEvent.VK_DOWN :
-				changeDirection(Direction.STOP);
+				//changeDirection(Direction.STOP);
 				bD = false;
 				break;
 			case KeyEvent.VK_W :
@@ -332,7 +351,7 @@ public class Tank
 			{
 				this.ptDir = this.dir;
 			}
-			changeDirection(Direction.STOP);
+			//changeDirection(Direction.STOP);
 		}
 	}
 	
@@ -468,7 +487,7 @@ public class Tank
 		ArrayList<Tank> tanks = tc.getTanks();
 		Square[][] squareDbl = tc.board.getSquareDblArray();
 		int x,y;
-		int area = sight+1;
+		int area = sight;
 		for(Tank t: tanks)
 		{
 			if(!t.equals(this))
