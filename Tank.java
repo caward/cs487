@@ -366,6 +366,7 @@ public class Tank
 
 			Missile m = new Missile(x, y, ptDir, this.tc, this);
 			tc.missiles.add(m);
+			GameSounds.missileLaunch();
 			missileDestroyed = false;
 		}
 	}
@@ -478,6 +479,7 @@ public class Tank
 		}else
 		{
 			tankDestroyed = true;
+			GameSounds.tankExplode();
 		}	
 	}
 	

@@ -63,6 +63,8 @@ public class Missile
 		if(hitObstacle() || hitTank())
 		{
 			missile = nuclear;
+			GameSounds.missileLaunchStop();
+			GameSounds.missileExplode();
 			g.drawImage(missile, x, y-9, null);		
 			live = false;
 			tc.missiles.remove(this);		
