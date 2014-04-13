@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-//import java.io.File;
-//import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 //import java.util.Timer;
@@ -10,14 +8,16 @@ import java.util.ArrayList;
 //import javax.imageio.ImageIO;
 //import javax.swing.ImageIcon;
 
+
 public class TankClient extends Frame
 {
+
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
 //	private static int interval = 1200;
 	static int intervalMillisecs = 1201000;
-//	private String img = "src/TankCombat.png";
-//	private Image tankIcon = new ImageIcon(img).getImage();
+	//private String img = "src/TankCombat.png";
+	//private Image tankIcon = new ImageIcon(img).getImage();
 	Tank myTank = new Tank(7, 30, this);
 	Tank aiTank = new Tank_AI(7,30,this);
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -28,8 +28,8 @@ public class TankClient extends Frame
 	Player p;
 //	static Timer timer = new Timer();
 //	private int delay = 1000;
-//    private int period = 1000;
-//    private String countDown = "20:00";
+//  private int period = 1000;
+//  private String countDown = "20:00";
     long futureTime = 0;
     long newTime = 0;
     long secondTime = 0;
@@ -75,7 +75,9 @@ public class TankClient extends Frame
 //		p = dbc.login();
 //		p.setTank(myTank);
 //		myTank.setPlayer(p);
+		
 		// GAMEBOARD SETUP
+
 		board = new GameBoard(15,15, this);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
@@ -84,23 +86,25 @@ public class TankClient extends Frame
 		tanks.add(aiTank);
 		tanks.add(myTank);
 		randomPosition();
-		//this.setIconImage(tankIcon);
+//		this.setIconImage(tankIcon);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
+		
 		this.setResizable(false);
 		this.setBackground(Color.GREEN);
 		
 		this.addKeyListener(new KeyMonitor());
-		
 		setVisible(true);
 		
 		new Thread(new PaintThread()).start();
+		
 //		timer.scheduleAtFixedRate(new TimerTask() {
 //
 //	        public void run()
@@ -108,7 +112,8 @@ public class TankClient extends Frame
 //	        	countDown = setInterval();
 //	        }
 //	    }, delay, period);
-//		futureTime = System.currentTimeMillis()+intervalMillisecs;
+		
+		futureTime = System.currentTimeMillis()+intervalMillisecs;
 	}
 	
 	public ArrayList <Tank> getTanks()
