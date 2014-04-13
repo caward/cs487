@@ -1,20 +1,21 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+//import java.io.File;
+//import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+//import java.util.Timer;
+//import java.util.TimerTask;
+//import javax.imageio.ImageIO;
+//import javax.swing.ImageIcon;
 
 public class TankClient extends Frame
 {
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
-	private static int interval = 1200;
+//	private static int interval = 1200;
+	static int intervalMillisecs = 1201000;
 //	private String img = "src/TankCombat.png";
 //	private Image tankIcon = new ImageIcon(img).getImage();
 	Tank myTank = new Tank(7, 30, this);
@@ -25,10 +26,14 @@ public class TankClient extends Frame
 	Image offScreenImage = null;
 	GameBoard board;
 	Player p;
-	static Timer timer = new Timer();
-	private int delay = 1000;
-    private int period = 1000;
-    private String countDown = "20:00";
+//	static Timer timer = new Timer();
+//	private int delay = 1000;
+//    private int period = 1000;
+//    private String countDown = "20:00";
+    long futureTime = 0;
+    long newTime = 0;
+    long secondTime = 0;
+    String gameTime = "20:00";
 	
 	public void paint(Graphics g)
 	{
@@ -44,7 +49,9 @@ public class TankClient extends Frame
 			t.draw(g);
 		}
 		//Draws timer
-		g.drawString(countDown, 50, 50);	
+		//g.drawString(countDown, 50, 50);
+		secondTime = (futureTime-System.currentTimeMillis())/1000;
+		g.drawString(secondTime/60+":"+secondTime%60, 50, 50);	
 	}
 	
 	public void update(Graphics g)
@@ -94,13 +101,14 @@ public class TankClient extends Frame
 		setVisible(true);
 		
 		new Thread(new PaintThread()).start();
-		timer.scheduleAtFixedRate(new TimerTask() {
-
-	        public void run()
-	        {
-	        	countDown = setInterval();
-	        }
-	    }, delay, period);
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//
+//	        public void run()
+//	        {
+//	        	countDown = setInterval();
+//	        }
+//	    }, delay, period);
+//		futureTime = System.currentTimeMillis()+intervalMillisecs;
 	}
 	
 	public ArrayList <Tank> getTanks()
@@ -151,15 +159,15 @@ public class TankClient extends Frame
 		}
 	}
 	
-	private static final String setInterval() {
-	   String time;
-		if (interval == 1)
-	        timer.cancel();
-	    --interval;
-	    time = interval/60+":"+interval%60;
-	    return time;
-	}
-	
+//	private static final String setInterval() {
+//	   String time;
+//		if (interval == 1)
+//	        timer.cancel();
+//	    --interval;
+//	    time = interval/60+":"+interval%60;
+//	    return time;
+//	}
+//	
 	private class KeyMonitor extends KeyAdapter
 	{
 		public void keyReleased(KeyEvent e)
