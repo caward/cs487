@@ -8,13 +8,14 @@ import java.util.ArrayList;
 //import javax.imageio.ImageIO;
 //import javax.swing.ImageIcon;
 
+import javax.swing.JPanel;
+
 
 public class TankClient extends Frame
 {
 
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
-//	private static int interval = 1200;
 	static int intervalMillisecs = 1201000;
 	//private String img = "src/TankCombat.png";
 	//private Image tankIcon = new ImageIcon(img).getImage();
@@ -30,6 +31,7 @@ public class TankClient extends Frame
 //	private int delay = 1000;
 //  private int period = 1000;
 //  private String countDown = "20:00";
+//	private static int interval = 1200;
     long futureTime = 0;
     long newTime = 0;
     long secondTime = 0;
@@ -78,7 +80,7 @@ public class TankClient extends Frame
 		
 		// GAMEBOARD SETUP
 
-		board = new GameBoard(15,15, this);
+		board = new GameBoard(20,25, this);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
@@ -87,7 +89,8 @@ public class TankClient extends Frame
 		tanks.add(myTank);
 		randomPosition();
 //		this.setIconImage(tankIcon);
-		this.setSize(GAME_WIDTH, GAME_HEIGHT);
+		setSize(400,400);
+		//this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		
 		
