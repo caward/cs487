@@ -19,8 +19,22 @@ public class GameBoard
 		this.tc = tc;
 		square = new Square[row][col];
 		setBoard();
-		setObstacles();
-		
+		setObstacles();	
+	}
+	
+	public GameBoard(int row, int col)
+	{
+		this.row = row;
+		this.col = col;
+		square = new Square[row][col];
+		setBoard();
+		setObstacles();	
+	}
+	
+	public void setBoard(GameBoard board)
+	{
+		square = board.getSquareDblArray();
+		setObstacles();	
 	}
 	
 	//Randomly creates Square field
@@ -64,6 +78,7 @@ public class GameBoard
 			}
 		}
 	}
+	
 	
 	//Makes of list of the obstacles on the screen
 	public void setObstacles()

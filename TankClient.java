@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class TankClient extends Frame
 {
-
+	//GameClient gc = new GameClient();
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
 	static int intervalMillisecs = 1201000;
@@ -80,17 +80,20 @@ public class TankClient extends Frame
 		
 		// GAMEBOARD SETUP
 
-		board = new GameBoard(20,25, this);
+		board = new GameBoard(15, 15, this);
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
 		GAME_HEIGHT = board.getGameHeight();
-		tanks.add(aiTank);
+		
 		tanks.add(myTank);
-		randomPosition();
+		//gc.connect(this);
+		//board.setBoard(gc.getBoard);
+		//gc.sendtank(myTank);
+		randomPosition(myTank);
 //		this.setIconImage(tankIcon);
-		setSize(400,400);
-		//this.setSize(GAME_WIDTH, GAME_HEIGHT);
+		//setSize(400,400);
+		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");
 		
 		
@@ -125,7 +128,7 @@ public class TankClient extends Frame
 	}
 	
 	//Places tanks on random part of field
-	public void randomPosition()
+	public void randomPosition(Tank t)
 	{
 		Square[][] squareDbl = board.getSquareDblArray();
 		int width = board.getImageWidth();
@@ -133,15 +136,15 @@ public class TankClient extends Frame
 		int randomRow;
 		int randomCol;
 
-		for(Tank t: tanks)
-		{
+//		for(Tank t: tanks)
+//		{
 			randomRow = (int) (Math.random() * board.getRow());
 			randomCol = (int) (Math.random() * board.getCol());
 			if(squareDbl[randomRow][randomCol].getSquareType()!=Squares.OBSTACLE && !squareDbl[randomRow][randomCol].isUsed())
 			{
 				t.setPosition(randomRow*width+7,randomCol*height+30);
 			}
-		}
+//		}
 	}
 
 	public static void main(String[] args)

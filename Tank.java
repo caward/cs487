@@ -16,6 +16,10 @@ public class Tank
 	public static int HEIGHT = 20; //Height of tank 
 	public static int MP = 200; 
 	public static int HP = 200;
+	private final int MOVE = 1;
+	private final int FIRE = 1;
+	private final int END = 3;
+	
 
 	private BufferedImage bimg = null;
 	private TankClient tc;
@@ -27,7 +31,8 @@ public class Tank
 	private String img1 = "src/nuclear32.png"; //Tank explosion Image Pathway
 	private Player player;
 	
-	private int x, y;
+	public int id;
+	public int x, y;
 	public static boolean missileDestroyed = true;
 	private double percentage = 1;
 	private double loss = 0;
@@ -46,6 +51,7 @@ public class Tank
 	private int observeCost=0;
 	private int fireCost=0;
 	private boolean tankDestroyed = false;
+	int level = 1;
 //	private int count=0;
 
 	
@@ -87,10 +93,10 @@ public class Tank
 		// This makes the outline of the healthbar 
 		if(!tankDestroyed && isVisible())
 		{
-		g.drawRect(x-7, y-8, healthBarWidth, healthBarHeight);
+		g.drawRect(x-7, y-8, healthBarWidth*level, healthBarHeight*level);
 		//draws remaining health
 		g.setColor(Color.GREEN);
-		g.fillRect(x-7, y-8, (int)(healthBarWidth*percentage), 5);
+		g.fillRect(x-7, y-8, (int)(healthBarWidth*level*percentage), 5);
 		}else if(tankDestroyed)
 		{
 			tankImage = blowup;
@@ -125,6 +131,21 @@ public class Tank
 	public Direction getPtDir()
 	{
 		return ptDir;
+	}
+	
+	public void setLevel(int lvl)
+	{
+		level = lvl;
+	}
+	
+	public int getLevel()
+	{
+		return level;
+	}
+	
+	public int getID()
+	{
+		return id;
 	}
 	
 	void move()
@@ -258,25 +279,7 @@ public class Tank
 		{
 			int key = e.getKeyCode();
 			switch(key) {
-			case KeyEvent.VK_LEFT :
-				 changeDirection(Direction.L);
-				 move();
-				bL = true;
-				break;
-			case KeyEvent.VK_UP :
-				changeDirection(Direction.U);
-				move();
-				bU = true;
-				break;
-			case KeyEvent.VK_RIGHT :
-				changeDirection(Direction.R);
-				move();
-				bR = true;
-				break;
-			case KeyEvent.VK_DOWN :
-				changeDirection(Direction.D);
-				move();
-				break;
+			
 			case KeyEvent.VK_P :
 				System.out.println("Sight: "+sight);
 				break;
@@ -303,22 +306,30 @@ public class Tank
 			switch(key) {
 			case KeyEvent.VK_CONTROL: //Control key fires missile
 				fire();
+				//tc.gc.sendInfo(id,dir,FIRE);
 				break;
 			case KeyEvent.VK_LEFT :
-				//changeDirection(Direction.STOP);
-				bL = false;
+				 changeDirection(Direction.L);
+				 move();
+				 //tc.gc.sendInfo(id,dir,MOVE);
+				bL = true;
 				break;
 			case KeyEvent.VK_UP :
-				//changeDirection(Direction.STOP);
-				bU = false;
+				changeDirection(Direction.U);
+				move();
+				//tc.gc.sendInfo(id,dir,MOVE);
+				bU = true;
 				break;
 			case KeyEvent.VK_RIGHT :
-				//changeDirection(Direction.STOP);
-				bR = false;
+				changeDirection(Direction.R);
+				move();
+				//tc.gc.sendInfo(id,dir,MOVE);
+				bR = true;
 				break;
 			case KeyEvent.VK_DOWN :
-				//changeDirection(Direction.STOP);
-				bD = false;
+				changeDirection(Direction.D);
+				move();
+				//tc.gc.sendInfo(id,dir,MOVE);
 				break;
 			case KeyEvent.VK_W :
 				changeDirection(Direction.U);
@@ -578,6 +589,12 @@ public class Tank
 	
 	public void autoActive()
 	{
+		
+	}
+
+	public void end()
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

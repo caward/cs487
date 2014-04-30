@@ -28,9 +28,9 @@ public class Tank_AI extends Tank {
 
 	public void keyReleased(KeyEvent e)
 	{
-		int key = e.getKeyCode();
-		if (key == KeyEvent.VK_B)
-			autoActive();
+//		int key = e.getKeyCode();
+//		if (key == KeyEvent.VK_B)
+//			autoActive();
 	}
 
 	//Simple AI
