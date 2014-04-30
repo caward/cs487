@@ -66,10 +66,4 @@ public class Player
 	{
 		return tank;
 	}
-
-	public void endTurn()
-	{
-		Command command = new Command("end");
-		PlayerCommand playerCommand = new PlayerCommand(playerid,command);
-	}
 }

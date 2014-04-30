@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.DataOutputStream;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -12,7 +11,7 @@ public class GameClient
 
   DataInputStream dataInputStr;
   DataOutputStream dos;
-  GameBoard board;
+  int[][] board;
 
   public void connect(TankClient tc)
   {
@@ -22,7 +21,7 @@ public class GameClient
     try {
 		socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
 		ObjectInputStream objectInputStr = new ObjectInputStream(socket1.getInputStream());
-		board = (GameBoard)objectInputStr.readObject();
+		board = (int[][])objectInputStr.readObject();
 		dataInputStr = new DataInputStream(socket1.getInputStream());
 		dos = new DataOutputStream(socket1.getOutputStream());
 	} catch (UnknownHostException e) {
@@ -41,7 +40,7 @@ public class GameClient
     thread.start();
   }
 
-  public GameBoard getBoard()
+  public int[][] getBoard()
   {
     return board;
   }

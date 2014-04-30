@@ -7,10 +7,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import javax.imageio.ImageIO;
 
-public class Square
+public class Square implements Serializable
 {
 	private Point position;
 	private GameBoard board;

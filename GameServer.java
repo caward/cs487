@@ -34,7 +34,7 @@ public class GameServer
 
         if(gamers[i]==null)
         {
-          gamers[i] = new Gamer(gamers,dis,dos,oos,board);
+          gamers[i] = new Gamer(gamers,dis,dos,oos,board.getMap());
           Thread thread = new Thread(gamers[i]);
           thread.start();
           break;  

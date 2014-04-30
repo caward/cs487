@@ -31,7 +31,8 @@ public class Tank
 	private String img1 = "src/nuclear32.png"; //Tank explosion Image Pathway
 	private Player player;
 	
-	public int id;
+	public static int ID=1;
+	public int id = ID++;
 	public int x, y;
 	public static boolean missileDestroyed = true;
 	private double percentage = 1;
@@ -84,7 +85,6 @@ public class Tank
 	public void draw(Graphics g)
 	{
 		Color c = g.getColor();
-		//autoActive();
 		// This draws the tank
 		if(isVisible())
 		{
@@ -306,30 +306,30 @@ public class Tank
 			switch(key) {
 			case KeyEvent.VK_CONTROL: //Control key fires missile
 				fire();
-				//tc.gc.sendInfo(id,dir,FIRE);
+				tc.gc.sendInfo(id,dir,FIRE);
 				break;
 			case KeyEvent.VK_LEFT :
 				 changeDirection(Direction.L);
 				 move();
-				 //tc.gc.sendInfo(id,dir,MOVE);
+				 tc.gc.sendInfo(id,dir,MOVE);
 				bL = true;
 				break;
 			case KeyEvent.VK_UP :
 				changeDirection(Direction.U);
 				move();
-				//tc.gc.sendInfo(id,dir,MOVE);
+				tc.gc.sendInfo(id,dir,MOVE);
 				bU = true;
 				break;
 			case KeyEvent.VK_RIGHT :
 				changeDirection(Direction.R);
 				move();
-				//tc.gc.sendInfo(id,dir,MOVE);
+				tc.gc.sendInfo(id,dir,MOVE);
 				bR = true;
 				break;
 			case KeyEvent.VK_DOWN :
 				changeDirection(Direction.D);
 				move();
-				//tc.gc.sendInfo(id,dir,MOVE);
+				tc.gc.sendInfo(id,dir,MOVE);
 				break;
 			case KeyEvent.VK_W :
 				changeDirection(Direction.U);
@@ -356,6 +356,10 @@ public class Tank
 				break;
 			case KeyEvent.VK_L :
 				scan();
+				break;
+			case KeyEvent.VK_E :
+				end();
+				tc.gc.sendInfo(id,dir,END);
 				break;
 			}
 			if(this.dir != Direction.STOP)
@@ -585,11 +589,6 @@ public class Tank
 				}
 			}
 		}
-	}
-	
-	public void autoActive()
-	{
-		
 	}
 
 	public void end()

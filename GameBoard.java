@@ -1,11 +1,13 @@
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 
-public class GameBoard
+public class GameBoard implements Serializable
 {
 	private Square[][] square;
+	int[][] map;
 	private TankClient tc;
 	private ArrayList<Square> obstacles = new ArrayList<Square>();
 	private Point p;
@@ -14,12 +16,9 @@ public class GameBoard
 
 	public GameBoard(int row, int col,TankClient tc)
 	{
-		this.row = row;
-		this.col = col;
+		this(row, col);
 		this.tc = tc;
-		square = new Square[row][col];
-		setBoard();
-		setObstacles();	
+	
 	}
 	
 	public GameBoard(int row, int col)
@@ -27,6 +26,7 @@ public class GameBoard
 		this.row = row;
 		this.col = col;
 		square = new Square[row][col];
+		map = new int[row][col];
 		setBoard();
 		setObstacles();	
 	}
@@ -34,6 +34,7 @@ public class GameBoard
 	public void setBoard(GameBoard board)
 	{
 		square = board.getSquareDblArray();
+		obstacles = new ArrayList<Square>();
 		setObstacles();	
 	}
 	
@@ -48,19 +49,23 @@ public class GameBoard
 	            if (random <.05) //Chance of square becoming an obstacle
 	            {
 	            	p = new Point(i,j);
-	                square[i][j]= new Obstacle(p,this);
+	                square[i][j] = new Obstacle(p,this);
+	                map[i][j] = 3;
 	            }else if (random < .15) //Chance of square becoming a Pit
 	            {
 	            	p = new Point(i,j);
-	                square[i][j]= new Pit(p,this);
+	                square[i][j] = new Pit(p,this);
+	                map[i][j] = 2;
 	            }else if (random < .25) //Chance of square becoming a hill
 	            {
 	            	p = new Point(i,j);
-	                square[i][j]= new Hill(p,this);
+	                square[i][j] = new Hill(p,this);
+	                map[i][j] = 1;
 	            }else					//Chance of square becoming an plain square
 	            {
 	            	p = new Point(i,j);
-	                square[i][j]= new Square(p,this);
+	                square[i][j] = new Square(p,this);
+	                map[i][j] = 0;
 	            }
 	        }
 	    }
@@ -79,6 +84,40 @@ public class GameBoard
 		}
 	}
 	
+	public int[][] getMap()
+	{
+		return map;
+	}
+	
+	public void setMap(int[][] map1)
+	{
+		map = map1;
+		for(int i=0; i<row; i++)
+		{          
+	        for(int j=0; j<col; j++)
+	        {
+	        	if(map[row][col] == 0)
+	        	{
+	        		p = new Point(row,col);
+	        		square[row][col] = new Square(p,this);
+	        	}else if(map[row][col] == 1)
+	        	{
+	        		p = new Point(row,col);
+	        		square[row][col] = new Hill(p,this);
+	        	}else if(map[row][col] == 2)
+	        	{
+	        		p = new Point(row,col);
+	        		square[row][col] =  new Pit(p,this);
+	        	}else
+	        	{
+	        		p = new Point(row,col);
+	        		square[row][col] = new Obstacle(p,this);
+	        	}
+	        }
+	    }
+		obstacles = new ArrayList<Square>();
+		setObstacles();
+	}
 	
 	//Makes of list of the obstacles on the screen
 	public void setObstacles()

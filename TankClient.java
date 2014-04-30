@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class TankClient extends Frame
 {
-	//GameClient gc = new GameClient();
+	GameClient gc = new GameClient();
 	public static int GAME_WIDTH = 680;
 	public static int GAME_HEIGHT = 700;
 	static int intervalMillisecs = 1201000;
@@ -87,10 +87,13 @@ public class TankClient extends Frame
 		GAME_HEIGHT = board.getGameHeight();
 		
 		tanks.add(myTank);
-		//gc.connect(this);
-		//board.setBoard(gc.getBoard);
-		//gc.sendtank(myTank);
+		gc.connect(this);
+		board.setMap(gc.getBoard());
+		
 		randomPosition(myTank);
+		
+		gc.sendTank(myTank);
+		
 //		this.setIconImage(tankIcon);
 		//setSize(400,400);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);

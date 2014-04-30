@@ -2,8 +2,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class Gamer implements Runnable
 {
@@ -12,13 +10,13 @@ public class Gamer implements Runnable
 	DataOutputStream dos;
 	ObjectOutputStream objectOut;
 
-	public Gamer(Gamer[] gamers, DataInputStream dis, DataOutputStream dos, ObjectOutputStream objectOut, GameBoard board)
+	public Gamer(Gamer[] gamers, DataInputStream dis, DataOutputStream dos, ObjectOutputStream objectOut, int[][] map)
 	{
 		this.gamers = gamers;
 		this.dis = dis;
 		this.dos = dos;
 		try {
-			objectOut.writeObject(board);
+			objectOut.writeObject(map);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

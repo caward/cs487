@@ -43,7 +43,6 @@ public class GameClientInput implements Runnable
 					e.printStackTrace();
 				}
       			
-
       			if(tc.myTank.getID() != id)
       			{	
       				Tank ai = new Tank_AI(x,y,tc);
@@ -61,24 +60,26 @@ public class GameClientInput implements Runnable
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-      			
-      			for(Tank t:tc.tanks)
+      			if(tc.myTank.getID() != id)
       			{
-        			if(t.getID()==id)
-        			{
-          				t.changeDirection(Tank.Direction.values()[dir]);
-          				switch(command)
-          				{
-          					case 1: 
-          						t.move();
-          						break;
-          					case 2:
-          						t.fire();
-          						break;
-          					case 3:
-          						t.end();
-          				}
-        			}
+      				for(Tank t:tc.tanks)
+      				{
+      					if(t.getID()==id)
+      					{
+      						t.changeDirection(Tank.Direction.values()[dir]);
+      						switch(command)
+      						{
+      						case 1: 
+      							t.move();
+      							break;
+      						case 2:
+      							t.fire();
+      							break;
+      						case 3:
+      							t.end();
+      						}
+      					}
+      				}
       			}
     		}
 		}
