@@ -16,9 +16,12 @@ public class GameServer
     int port = 7777;
     Gamer[] gamers = new Gamer[MAX_GAMERS]; 
     GameBoard board = new GameBoard(15,15);
+    ObjectOutputStream oos;
+    DataInputStream dis;
+    DataOutputStream dos;
     
 
-    servSocket = new ServerSocket(port);
+    servSocket = new ServerSocket(port,MAX_GAMERS);
 //    while(true)
 //    {
       for(int i=0; i<MAX_GAMERS; i++)
@@ -28,9 +31,11 @@ public class GameServer
 
         socket = servSocket.accept();
 
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        DataInputStream dis = new DataInputStream(socket.getInputStream());
-        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.flush();
+        dis = new DataInputStream(socket.getInputStream());
+        dos = new DataOutputStream(socket.getOutputStream());
+        dos.flush();
 
         if(gamers[i]==null)
         {

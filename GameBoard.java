@@ -27,8 +27,7 @@ public class GameBoard implements Serializable
 		this.col = col;
 		square = new Square[row][col];
 		map = new int[row][col];
-		setBoard();
-		setObstacles();	
+		setBoard();	
 	}
 	
 	public void setBoard(GameBoard board)

@@ -25,20 +25,39 @@ public class Gamer implements Runnable
 
 	public void run()
 	{
+		int one = -1;
+		int two = -1;
+		int three = -1;
+		int four = -1;
+		int five = -1;
+
 		while(true)
 		{
+			try
+			{
+				one = dis.readInt();
+				two = dis.readInt();
+				three = dis.readInt();
+				four = dis.readInt();
+				five = dis.readInt();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for(int i=0; i<gamers.length; i++)
 			{
-				if(gamers[i]!=null)
+				if(gamers[i]!=null && !gamers[i].equals(this))
 				{
 					try
 					{
-						dos.writeInt(dis.readInt());
-						dos.writeInt(dis.readInt());
-						dos.writeInt(dis.readInt());
-						dos.writeInt(dis.readInt());
-						dos.writeInt(dis.readInt());
-					} catch (IOException e) {
+						gamers[i].dos.writeInt(one);
+						gamers[i].dos.writeInt(two);
+						gamers[i].dos.writeInt(three);
+						gamers[i].dos.writeInt(four);
+						gamers[i].dos.writeInt(five);
+					} catch (IOException e)
+					{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
