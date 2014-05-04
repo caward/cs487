@@ -95,22 +95,22 @@ public class GameBoard implements Serializable
 		{          
 	        for(int j=0; j<col; j++)
 	        {
-	        	if(map[row][col] == 0)
+	        	if(map[i][j] == 0)
 	        	{
-	        		p = new Point(row,col);
-	        		square[row][col] = new Square(p,this);
-	        	}else if(map[row][col] == 1)
+	        		p = new Point(i,j);
+	        		square[i][j] = new Square(p,this);
+	        	}else if(map[i][j] == 1)
 	        	{
-	        		p = new Point(row,col);
-	        		square[row][col] = new Hill(p,this);
-	        	}else if(map[row][col] == 2)
+	        		p = new Point(i,j);
+	        		square[i][j] = new Hill(p,this);
+	        	}else if(map[i][j] == 2)
 	        	{
-	        		p = new Point(row,col);
-	        		square[row][col] =  new Pit(p,this);
+	        		p = new Point(i,j);
+	        		square[i][j] =  new Pit(p,this);
 	        	}else
 	        	{
-	        		p = new Point(row,col);
-	        		square[row][col] = new Obstacle(p,this);
+	        		p = new Point(i,j);
+	        		square[i][j] = new Obstacle(p,this);
 	        	}
 	        }
 	    }

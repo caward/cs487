@@ -17,7 +17,7 @@ public class Tank
 	public static int MP = 200; 
 	public static int HP = 200;
 	private final int MOVE = 1;
-	private final int FIRE = 1;
+	private final int FIRE = 2;
 	private final int END = 3;
 	
 
@@ -32,7 +32,7 @@ public class Tank
 	private Player player;
 	
 	public static int ID=1;
-	public int id = ID++;
+	public int id;
 	public int x, y;
 	public static boolean missileDestroyed = true;
 	private double percentage = 1;

@@ -20,7 +20,7 @@ public class TankClient extends Frame
 	//private String img = "src/TankCombat.png";
 	//private Image tankIcon = new ImageIcon(img).getImage();
 	Tank myTank = new Tank(7, 30, this);
-	Tank aiTank = new Tank_AI(7,30,this);
+	//Tank aiTank = new Tank_AI(7,30,this);
 	List<Missile> missiles = new ArrayList<Missile>();
 	ArrayList<Tank> tanks = new ArrayList<Tank>();
 	BufferedImage bimg = null;
@@ -187,7 +187,7 @@ public class TankClient extends Frame
 		public void keyReleased(KeyEvent e)
 		{
 			myTank.keyReleased(e);
-			aiTank.keyReleased(e);
+			//aiTank.keyReleased(e);
 		}
 
 		public void keyPressed(KeyEvent e)

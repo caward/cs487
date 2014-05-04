@@ -15,15 +15,17 @@ public class GameClient
 
   public void connect(TankClient tc)
   {
-    Socket socket1;
+    Socket socket;
     int portNumber = 7777;
-
-    try {
-		socket1 = new Socket(InetAddress.getLocalHost(), portNumber);
-		ObjectInputStream objectInputStr = new ObjectInputStream(socket1.getInputStream());
+    //InetAddress.getLocalHost()
+    try
+    {
+		socket = new Socket("localhost", portNumber);
+		System.out.println("Connected");
+		ObjectInputStream objectInputStr = new ObjectInputStream(socket.getInputStream());
 		board = (int[][])objectInputStr.readObject();
-		dataInputStr = new DataInputStream(socket1.getInputStream());
-		dos = new DataOutputStream(socket1.getOutputStream());
+		dataInputStr = new DataInputStream(socket.getInputStream());
+		dos = new DataOutputStream(socket.getOutputStream());
 	} catch (UnknownHostException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

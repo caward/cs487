@@ -2,20 +2,26 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class Gamer implements Runnable
 {
 	Gamer[] gamers;
+	Socket socket;
 	DataInputStream dis;
 	DataOutputStream dos;
 	ObjectOutputStream objectOut;
 
-	public Gamer(Gamer[] gamers, DataInputStream dis, DataOutputStream dos, ObjectOutputStream objectOut, int[][] map)
+	public Gamer(Gamer[] gamers, Socket socket, int[][] map)
 	{
 		this.gamers = gamers;
-		this.dis = dis;
-		this.dos = dos;
-		try {
+		this.socket = socket;
+		try
+		{
+			dis = new DataInputStream(socket.getInputStream());
+			dos = new DataOutputStream(socket.getOutputStream());
+			objectOut = new ObjectOutputStream(socket.getOutputStream());
+			objectOut.flush();
 			objectOut.writeObject(map);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -60,8 +66,7 @@ public class Gamer implements Runnable
 					{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-    				
+					}    				
 				}
 			}
 		}
