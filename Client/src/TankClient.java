@@ -24,6 +24,7 @@ public class TankClient extends Frame {
 	GameBoard board;
 	Player p;
 	DBConnection dbc = null;
+	boolean isNewState = true;
 
 	NetClient nc = new NetClient(this);
 	private boolean sorted = false;
@@ -76,9 +77,88 @@ public class TankClient extends Frame {
 		}
 		if((secondTime/60) <= 0 && (secondTime%60)<=0)
 		{
+			
+
 			//implement game ending scenario
 			playerTurnID= -1;//stop turns
-			
+			tabulate(g);
+			// TankMoveMsg msg = new TankMoveMsg(myTank.id, myTank.dir, myTank.Gameend);
+			// tc.nc.send(msg);
+		}
+	}
+
+	public void tabulate(Graphics g)
+	{
+		ArrayList<Tank> winner = new ArrayList<Tank>();
+		sortTanks();
+		winner.add(tanks.get(0));
+		for(Tank t:tanks)
+		{
+			if(!winner.contains(t))
+			{
+				if(t.getMP()==winner.get(1).getMP())
+					winner.add(t);
+			}
+		}
+		if(winner.size()==1)
+		{
+			if(winner.get(1).equals(myTank))
+			{
+				g.drawString("YOU WIN", myTank.x, myTank.y+8);
+				Player playerWon;
+				playerWon = myTank.getPlayer();
+				playerWon.increaseWin();
+//				dbc.win(playerWon.getWin(), playerWon.getPlayerID());
+//				dbc.close();
+			}
+			else
+			{
+				g.drawString("YOU Lose", myTank.x, myTank.y+8);
+				Player playerLost;
+				playerLost = myTank.getPlayer();
+				playerLost.increaseLoss();
+//				dbc.win(playerLost.getLoss(), playerLost.getPlayerID());
+//				dbc.close();
+			}
+		}else
+		{
+			ArrayList<Tank> healthWinner = new ArrayList<Tank>();
+			//sort by health
+			sortTanksHealth(winner);
+			if(healthWinner.size()==1)
+			{
+				if(healthWinner.get(1).equals(myTank))
+				{
+					g.drawString("YOU WIN", myTank.x, myTank.y+8);
+					Player playerWon;
+					playerWon = myTank.getPlayer();
+					playerWon.increaseWin();
+//					dbc.win(playerWon.getWin(), playerWon.getPlayerID());
+//					dbc.close();
+				}else
+				{
+					g.drawString("YOU Lose", myTank.x, myTank.y+8);
+					Player playerLost;
+					playerLost = myTank.getPlayer();
+					playerLost.increaseLoss();
+//					dbc.win(playerLost.getLoss(), playerLost.getPlayerID());
+//					dbc.close();
+				}
+			}else
+			{
+				if(healthWinner.contains(myTank))
+				{
+					g.drawString("Tie Game", myTank.x, myTank.y+8);
+				}else
+				{
+					g.drawString("YOU Lose", myTank.x, myTank.y+8);
+					Player playerLost;
+					playerLost = myTank.getPlayer();
+					playerLost.increaseLoss();
+//					dbc.win(playerLost.getLoss(), playerLost.getPlayerID());
+//					dbc.close();
+				}
+			}
 		}
 	}
 
@@ -106,6 +186,31 @@ public class TankClient extends Frame {
 	{
 		return sorted;
 	}
+
+
+	public void sortTanksHealth(ArrayList<Tank> tank)
+	{
+		Tank[] array;
+		//Cover ArrayList to array 
+		array = tank.toArray(new Tank[tank.size()]);
+		//Sort array
+		for (int i=0; i<array.length-1; i++)
+		{
+	        for (int j=i+1; j<array.length; j++)
+	        {
+	            if (array[i].getHealth() < array[j].getHealth())
+	            {
+	                Tank temp = array[i];
+	                array[i] = array[j];
+	                array[j] = temp;
+	            }
+	        }
+	    }
+		//Convert array to ArrayList 
+		tank = new ArrayList<Tank>(Arrays.asList(array));
+		setSorted(true);
+	}
+
 	
 	public void sortTanks()
 	{
@@ -117,7 +222,7 @@ public class TankClient extends Frame {
 		{
 	        for (int j=i+1; j<array.length; j++)
 	        {
-	            if (array[i].getID() > array[j].getID())
+	            if (array[i].getMP() < array[j].getMP())
 	            {
 	                Tank temp = array[i];
 	                array[i] = array[j];
@@ -141,13 +246,22 @@ public class TankClient extends Frame {
 		
 		nc.connect("10.0.0.2", TankServer.TCP_PORT);
 		board = new GameBoard(15, 15, this);
+		File file = new File("SaveFile.txt");
+		if (file.exists())
+		{
+			isNewState = false;
+		}
 		board.setMap(nc.getMap()); 
 		Tank.XSPEED = board.getImageWidth();
 		Tank.YSPEED = board.getImageHeight();
 		GAME_WIDTH = board.getGameWidth();
 		GAME_HEIGHT = board.getGameHeight();
 		tanks.add(myTank);
-		randomPosition();
+		if(isNewState)
+		{
+			randomPosition();
+		}
+		
 		// this.setIconImage(tankIcon);
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.setTitle("TankWar");

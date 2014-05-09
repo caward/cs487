@@ -30,6 +30,7 @@ public class Tank
 	private final int RIGHT = 6;
 	private final int UP = 7;
 	private final int DOWN = 8;
+	public final int Gameend = 9;
 	long playerStartTime = 60000;
 	long playerTime = 0;
 
@@ -194,6 +195,11 @@ public class Tank
 		ptDir = pt;
 	}
 	
+	public int getMP()
+	{
+		return (runningTotalMP+localMP);
+	}
+
 	public Direction getPtDir()
 	{
 		return ptDir;
@@ -590,11 +596,19 @@ public class Tank
 	public void setPlayer(Player p)
 	{
 		player = p;
+		x = player.getXcoor();
+		y = player.getYcoor();
+		setLevel(player.getLevel());
 	}
 	
 	public Player getPlayer()
 	{
 		return player;
+	}
+
+	public int getHealth()
+	{
+		return (HP-loss);
 	}
 
 	public void takeHit(int damage)
@@ -620,12 +634,10 @@ public class Tank
 	public void save()
 	{
 		File file = new File("SaveFile.txt");
-
 		if (!file.exists())
 		{
 			int[][] map = tc.board.getMap();
 			//Write 2D array to file
-
 			PrintStream ps;
 			try 
 			{
@@ -643,7 +655,6 @@ public class Tank
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		//Store coordinates in dbc
 		//tc.dbc.updateCoordinates(player.getPlayerID(), x, y, id);

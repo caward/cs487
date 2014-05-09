@@ -7,6 +7,8 @@ public class Player
 	private int win;
 	private int loss;
 	private int resume;
+	private int xCoor=0;
+	private int yCoor=0;
 	
 	public Player(String name, int pid)
 	{
@@ -18,6 +20,26 @@ public class Player
 		loss = 0;
 		setResume(0);
 	}
+
+	public void setXCoor(int x)
+	{
+		xCoor = x;
+	}
+
+	public int getXCoor()
+	{
+		return xCoor;
+	}
+
+	public void setYCoor(int y)
+	{
+		yCoor = y;
+	}
+
+	public int getYCoor()
+	{
+		return yCoor;
+	} 
 	
 	public int getLevel()
 	{

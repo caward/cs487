@@ -96,6 +96,8 @@ public class DBConnection
 		int win = -1;
 		int loss = -1;
 		int resume = -1;
+		int xcor = -1;
+		int ycor = -1;
 		
 		while(true)
 		{
@@ -107,7 +109,7 @@ public class DBConnection
 				username = JOptionPane.showInputDialog("Enter UserName");
 				try
 				{
-					PreparedStatement stmt = sqlConnection.prepareStatement("SELECT Name, ID, Level, Loss, Win, Resume FROM Player WHERE Name = ?");
+					PreparedStatement stmt = sqlConnection.prepareStatement("SELECT Name, ID, Level, Loss, Win, Resume, xCoor, yCoor FROM Player WHERE Name = ?");
 					stmt.setString(1, username);
 					ResultSet rset = stmt.executeQuery();
 					if(rset.next())
@@ -117,7 +119,9 @@ public class DBConnection
 						level = rset.getInt("Level");
 						loss = rset.getInt("Loss");
 						win = rset.getInt("Win");
-						resume = rset.getInt("Resume");		
+						resume = rset.getInt("Resume");
+						xcor = rset.getInt("xCoor");
+						ycor = rset.getInt("yCoor");
 					}
 					if (name==null)
 					{
@@ -129,6 +133,8 @@ public class DBConnection
 						p.setLoss(loss);
 						p.setWin(win);
 						p.setResume(resume);
+						p.setXCoor(xcor);
+						p.setXCoor(ycor);
 						return p;
 					}
 				} catch (SQLException e)
